@@ -23,23 +23,24 @@
         <!-- side nav bar -->
         <div class="nav">
             <ul>
-                <li><button id="navbutton_1" class="navbutton" onclick="handelTab('#ov', '#navbutton_1')">Overview</button></li>
+                <li><button id="navbutton_1" class="navbutton" onclick="handleTab('#ov', '#navbutton_1')">Overview</button></li>
                 <li>
                     <a href="#" id="nav_dev">Conditional Prediction</a >
                     <div class="nav_box" id="dev_item" style="display: none;">
-                        <button id="navbutton_2" onclick="handelTab('#cp_t', '#navbutton_2')" class="nav_item navbutton">Temperature</button>
-                        <button id="navbutton_3" onclick="handelTab('#cp_h', '#navbutton_3')" class="nav_item navbutton">Humidity</button>
-                        <button id="navbutton_4" onclick="handelTab('#cp_s', '#navbutton_4')" class="nav_item navbutton">Season</button>
+                        <button id="navbutton_2" onclick="handleTab('#cp_t', '#navbutton_2')" class="nav_item navbutton">Temperature</button>
+                        <button id="navbutton_3" onclick="handleTab('#cp_h', '#navbutton_3')" class="nav_item navbutton">Humidity</button>
+                        <button id="navbutton_4" onclick="handleTab('#cp_s', '#navbutton_4')" class="nav_item navbutton">Season</button>
                     </div>
                 </li>
-                <li><button id="navbutton_5" class="navbutton" onclick="handelTab('#wn', '#navbutton_5')">Warnings</button></li>
-                <li><button id="navbutton_6" class="navbutton" onclick="handelTab('#dt', '#navbutton_6')">Data</button></li>
-                <li><button id="navbutton_7" class="navbutton" onclick="handelTab('#rs', '#navbutton_7')">Research</button></li>
+                <li><button id="navbutton_5" class="navbutton" onclick="handleTab('#wn', '#navbutton_5')">Warnings</button></li>
+                <li><button id="navbutton_6" class="navbutton" onclick="handleTab('#dt', '#navbutton_6')">Data</button></li>
+                <li><button id="navbutton_7" class="navbutton" onclick="handleTab('#rs', '#navbutton_7')">Research</button></li>
             </ul>
         </div>
 
         <!-- tab pages -->
-        <div class="main">
+        <div class="main flex">
+            <a href="#" class="nav_icon"><i class="small material-icons">reorder</i></a>
             <div class="pages" id="ov">1</div>
             <div class="pages" id="cp_t">2</div>
             <div class="pages" id="cp_h">3</div>
