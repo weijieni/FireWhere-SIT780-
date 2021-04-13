@@ -34,7 +34,7 @@ $(function() {
 //handle nav-button click task - tab switch
 function handleTab(id, bid) {
   // tab switch
-  $('.pages').fadeOut(300)
+  $('.pages').hide(0)
   $(id).fadeIn(300)
 
   // button color
