@@ -22,11 +22,11 @@ $(function() {
 
   //handle nav-bar show and hide
   $('.nav_icon').click(function() {
-    var nav_bar = $('.nav')
+    var nav_bar = $('.navsection')
     if (nav_bar.css("display") == "none") {
-      nav_bar.show(200)
+      nav_bar.fadeIn(600)
     } else {
-      nav_bar.hide(200)
+      nav_bar.fadeOut(300)
     }
   })
 })
@@ -43,4 +43,3 @@ function handleTab(id, bid) {
   //change selected button color and font color
   $(bid).addClass('btn_selected')
 }
-

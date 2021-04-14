@@ -8,6 +8,7 @@
     "http-post": "^0.1.1",
     "http-proxy": "^1.8.1",
     "materialize-css": "^1.0.0",
+    "sass": "^1.32.8",
     "socket.io": "^2.3.0"
   },
   "main": "server.js",
