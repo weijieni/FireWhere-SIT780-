@@ -35,18 +35,22 @@ input {border:none;}
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;
- }
- ::-webkit-scrollbar-thumb {
+}
+::-webkit-scrollbar-thumb {
   background: #adadad;
   border-radius: 15px;
- }
- ::-webkit-scrollbar-thumb:hover{
+}
+::-webkit-scrollbar-thumb:hover{
   background: #7d7d7d;
- }
- ::-webkit-scrollbar-track{
+}
+::-webkit-scrollbar-track{
   background: #ffffff;
   border-radius: 0px;
- }
+}
+#map {
+  height: 100%;
+  width: 100%;
+}
 /* Customized styles */
 .container_main{
   /* margin: auto; */
@@ -235,4 +239,17 @@ button.btn_selected{
   height: auto;
   width: 10%;
   float: left;
+}
+.dropdown_extra_2{
+  margin: 25px 10px 10px 5px;
+  height: auto;
+  width: 35%;
+  float: left;
+}
+.map_container{
+  width: 90%;
+  height: 90%;
+  min-width: 90%;
+  min-height: 90%;
+  margin: 5% 5%;
 }

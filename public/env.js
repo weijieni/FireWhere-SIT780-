@@ -1,15 +1,26 @@
 // connect to the socket
-
 let socket = io();
 
+const warning_data = ["Urgent", "Nah"]
 
 socket.on('number', (msg) => {
 })
 
 console.log('test')
+// JS
+let map;
 
+function initMap() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: -34.397, lng: 150.644 },
+    zoom: 8,
+  });
+}
 
+// jQuery
 $(function() {
+  var ifUrgent = $('.ifUrgent')
+
   //handle nav-list click task
   $('#nav_dev').click(function() {
     var dev_item = $('#dev_item')
@@ -29,6 +40,14 @@ $(function() {
       nav_bar.fadeOut(300)
     }
   })
+
+  //handle urgent text color
+  // console.log(ifUrgent.text())
+  // if (ifUrgent.text() == "Urgent") {
+  //   ifUrgent.css("color", "orange")
+  // } else {
+  //   ifUrgent.css("color", "green")
+  // }
 })
 
 //handle nav-button click task - tab switch
