@@ -1,6 +1,7 @@
 // connect to the socket
 let socket = io();
 
+// datasets for test
 let warning_data = [
   {
     region: "VIC",
@@ -9,24 +10,20 @@ let warning_data = [
     urgent: "Urgent"
   }
 ]
-
 let temperature_data = [
   {
-    id: 0,
     region: "VIC",
     temperature: "38",
     warning: "Red",
     urgent: "Urgent"
   },
   {
-    id: 1,
     region: "VIC",
     temperature: "38",
     warning: "Red",
     urgent: "Urgent"
   },
   {
-    id: 2,
     region: "VIC",
     temperature: "38",
     warning: "Red",
@@ -109,27 +106,126 @@ let temperature_data = [
     warning: "Red",
     urgent: "Urgent"
   },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
 ]
-
-var temperature_columns = [
-  {
-  field: 'region',
-  title: 'Region'
-  }, 
-  {
-    field: 'temperature',
-    title: 'Temperature'
-  }, 
-  {
-    field: 'warning',
-    title: 'Warning'
-  }, 
-  {
-    field: 'urgent',
-    title: 'Urgent'
-  }
-]
-
 let humidity_data = [
   {
     id: 0,
@@ -139,26 +235,6 @@ let humidity_data = [
     urgent: "Nah"
   }
 ]
-
-var humidity_columns = [
-  {
-    field: 'region',
-    title: 'Region'
-  }, 
-  {
-    field: 'humidity',
-    title: 'Humidity'
-  }, 
-  {
-    field: 'warning',
-    title: 'Warning'
-  }, 
-  {
-    field: 'urgent',
-    title: 'Urgent'
-  }
-]
-
 let data_data = [
   {
     id: 0,
@@ -169,30 +245,6 @@ let data_data = [
     warning: "Red",
   }
 ]
-
-var data_columns = [
-  {
-    field: 'region',
-    title: 'Region'
-  }, 
-  {
-    field: 'temperature',
-    title: 'Temperature'
-  },
-  {
-    field: 'humidity',
-    title: 'Humidity'
-  }, 
-  {
-    field: 'bushfire_level',
-    title: 'Bush Fire Level'
-  }, 
-  {
-    field: 'warning',
-    title: 'Warning'
-  }
-]
-
 
 socket.on('number', (msg) => {
 })
@@ -241,45 +293,24 @@ $(function() {
   //   ifUrgent.css("color", "green")
   // }
 
-  getWarningData(warning_data)
+  $('#warning_table').bootstrapTable({
+    data: warning_data,
+    classes: 'table'
+  })
 
   $('#temperature_table').bootstrapTable({
-    columns: temperature_columns,
-    data: getData(temperature_data),
-    classes: "table", 
-    height: 600,
-    pagination:true,
-    pageNumber:1,
-    pageSize:10,
-    pageList:"[10, 20]",
-    paginationHAlign:"left",
-    paginationDetailHAlign:"right",
+    data: temperature_data,
+    classes: 'table'
   })
 
   $('#humidity_table').bootstrapTable({
-    columns: humidity_columns,
-    data: getData(humidity_data),
-    classes: "table", 
-    height: 600,
-    pagination:true,
-    pageNumber:1,
-    pageSize:10,
-    pageList:"[10, 20]",
-    paginationHAlign:"left",
-    paginationDetailHAlign:"right",
+    data: humidity_data,
+    classes: 'table'
   })
 
   $('#data_table').bootstrapTable({
-    columns: data_columns,
-    data: getData(data_data),
-    classes: "table", 
-    height: 600,
-    pagination:true,
-    pageNumber:1,
-    pageSize:10,
-    pageList:"[10, 20]",
-    paginationHAlign:"left",
-    paginationDetailHAlign:"right",
+    data: data_data,
+    classes: 'table'
   })
 })
 
@@ -296,28 +327,35 @@ function handleTab(id, bid) {
   $(bid).addClass('btn_selected')
 }
 
-//initial table data - warning tab
-function getWarningData(dataObj){
-  let tr = "";
-  for(let i=0; i<dataObj.length;i++){
-    tr+= `<tr><td>${dataObj[i].region}</td>
-              <td>${dataObj[i].warning}</td>
-              <td><button class='' data-bs-toggle="modal" data-bs-target="#staticBackdrop">${dataObj[i].warning_message}</button></td>
-              <td><p class=''>${dataObj[i].urgent}</p ></td>
-          </tr>`
-  }
-  $("#warning_data").html(tr)
+//customize data format
+function operateFormatter(value, row, index) {
+  return `
+  <button class="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">${warning_data[index].warning_message}</button>
+  `
 }
+
+// //initial table data - warning tab
+// function getWarningData(dataObj){
+//   let tr = "";
+//   for(let i=0; i<dataObj.length;i++){
+//     tr+= `<tr><td>${dataObj[i].region}</td>
+//               <td>${dataObj[i].warning}</td>
+//               <td><button class='' data-bs-toggle="modal" data-bs-target="#staticBackdrop">${dataObj[i].warning_message}</button></td>
+//               <td><p class=''>${dataObj[i].urgent}</p ></td>
+//           </tr>`
+//   }
+//   $("#warning_data").html(tr)
+// }
 
 //initial table data - for all
-function getData(dataObj){
-  var data = [];
+// function getData(dataObj){
+//   var data = [];
 
-  //push data objects
-  for (var i = 0; i < dataObj.length; i++)
-  {
-    data.push(dataObj[i]);
-  };
+//   //push data objects
+//   for (var i = 0; i < dataObj.length; i++)
+//   {
+//     data.push(dataObj[i]);
+//   };
 
-  return data;
-}
+//   return data;
+// }

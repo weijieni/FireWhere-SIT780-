@@ -70,7 +70,20 @@
                 <button type="button" class="btn btn-primary btn_extra" style="margin-top: 25px;">Search</button>
                 <button type="button" class="btn btn-secondary btn_extra" style="margin-top: 25px;">Clear</button>
                 <div style="padding: 0 5px;">
-                    <table id="temperature_table"></table>
+                    <table 
+                    id="temperature_table"
+                    data-height="600"
+                    data-pagination="true"
+                    >
+                        <thead>
+                            <tr>
+                                <th data-field="region">Region</th>
+                                <th data-field="temperature">Tempereture</th>
+                                <th data-field="warning">Warning</th>
+                                <th data-field="urgent">Urgent</th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
 
@@ -88,7 +101,20 @@
                 <button type="button" class="btn btn-primary btn_extra" style="margin-top: 25px;">Search</button>
                 <button type="button" class="btn btn-secondary btn_extra" style="margin-top: 25px;">Clear</button>
                 <div style="padding: 0 5px;">
-                    <table id="humidity_table"></table>
+                    <table 
+                    id="humidity_table"
+                    data-height="600"
+                    data-pagination="true"
+                    >
+                        <thead>
+                            <tr>
+                                <th data-field="region">Region</th>
+                                <th data-field="humidity">Humidity</th>
+                                <th data-field="warning">Warning</th>
+                                <th data-field="urgent">Urgent</th>
+                            </tr>
+                        </thead>   
+                    </table>
                 </div>
             </div>
 
@@ -124,26 +150,19 @@
                 <button type="button" class="btn btn-primary btn_extra" style="margin-top: 25px;">Search</button>
                 <button type="button" class="btn btn-secondary btn_extra" style="margin-top: 25px;">Clear</button>
                 <div style="padding: 0 5px;">
-                    <table class="table">
+                    <table 
+                        id="warning_table"
+                        data-pagination="true"
+                        data-height="600">
                         <thead>
                           <tr>
-                            <th scope="col">Region</th>
-                            <th scope="col">Warning</th>
-                            <th scope="col">Warning Message</th>
-                            <th scope="col">Urgent</th>
+                              <th data-field="region">Region</th>
+                              <th data-field="warning">Warning</th>
+                              <th data-field="warning_message" data-formatter="operateFormatter">Warning Message</th>
+                              <th data-field="urgent">Urgent</th>
                           </tr>
                         </thead>
-                        <tbody id="warning_data"></tbody>
                     </table>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                        </ul>
-                    </nav>
                 </div>
                 <!-- warning message dialog -->
                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -225,7 +244,22 @@
                 <button type="button" class="btn btn-primary btn_extra">Search</button>
                 <button type="button" class="btn btn-secondary btn_extra">Clear</button>
                 <div style="padding: 0 5px;">
-                    <table id="data_table"></table>
+                    <table 
+                    id="data_table"
+                    data-height="600"
+                    data-pagination="true"
+                    data-style="border: none"
+                    >
+                        <thead>
+                            <tr>
+                                <th data-field="region">Region</th>
+                                <th data-field="temperature">Temperature</th>
+                                <th data-field="humidity">Humidity</th>
+                                <th data-field="bushfire_level">Bush Fire Level</th>
+                                <th data-field="warning">Warning</th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
            </div>
 
