@@ -12,15 +12,127 @@ let warning_data = [
 
 let temperature_data = [
   {
+    id: 0,
     region: "VIC",
     temperature: "38",
     warning: "Red",
     urgent: "Urgent"
+  },
+  {
+    id: 1,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 2,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 3,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 4,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+  {
+    id: 0,
+    region: "VIC",
+    temperature: "38",
+    warning: "Red",
+    urgent: "Urgent"
+  },
+]
+
+var temperature_columns = [
+  {
+  field: 'region',
+  title: 'Region'
+  }, 
+  {
+    field: 'temperature',
+    title: 'Temperature'
+  }, 
+  {
+    field: 'warning',
+    title: 'Warning'
+  }, 
+  {
+    field: 'urgent',
+    title: 'Urgent'
   }
 ]
 
 let humidity_data = [
   {
+    id: 0,
     region: "VIC",
     humidity: "70",
     warning: "blue",
@@ -28,8 +140,28 @@ let humidity_data = [
   }
 ]
 
+var humidity_columns = [
+  {
+    field: 'region',
+    title: 'Region'
+  }, 
+  {
+    field: 'humidity',
+    title: 'Humidity'
+  }, 
+  {
+    field: 'warning',
+    title: 'Warning'
+  }, 
+  {
+    field: 'urgent',
+    title: 'Urgent'
+  }
+]
+
 let data_data = [
   {
+    id: 0,
     region: "VIC",
     temperature: "40",
     humidity: "40",
@@ -37,6 +169,30 @@ let data_data = [
     warning: "Red",
   }
 ]
+
+var data_columns = [
+  {
+    field: 'region',
+    title: 'Region'
+  }, 
+  {
+    field: 'temperature',
+    title: 'Temperature'
+  },
+  {
+    field: 'humidity',
+    title: 'Humidity'
+  }, 
+  {
+    field: 'bushfire_level',
+    title: 'Bush Fire Level'
+  }, 
+  {
+    field: 'warning',
+    title: 'Warning'
+  }
+]
+
 
 socket.on('number', (msg) => {
 })
@@ -85,10 +241,46 @@ $(function() {
   //   ifUrgent.css("color", "green")
   // }
 
-  initWarningTable(warning_data)
-  initTemperatureTable(temperature_data)
-  initHumidityTable(humidity_data)
-  initDataTable(data_data)
+  getWarningData(warning_data)
+
+  $('#temperature_table').bootstrapTable({
+    columns: temperature_columns,
+    data: getData(temperature_data),
+    classes: "table", 
+    height: 600,
+    pagination:true,
+    pageNumber:1,
+    pageSize:10,
+    pageList:"[10, 20]",
+    paginationHAlign:"left",
+    paginationDetailHAlign:"right",
+  })
+
+  $('#humidity_table').bootstrapTable({
+    columns: humidity_columns,
+    data: getData(humidity_data),
+    classes: "table", 
+    height: 600,
+    pagination:true,
+    pageNumber:1,
+    pageSize:10,
+    pageList:"[10, 20]",
+    paginationHAlign:"left",
+    paginationDetailHAlign:"right",
+  })
+
+  $('#data_table').bootstrapTable({
+    columns: data_columns,
+    data: getData(data_data),
+    classes: "table", 
+    height: 600,
+    pagination:true,
+    pageNumber:1,
+    pageSize:10,
+    pageList:"[10, 20]",
+    paginationHAlign:"left",
+    paginationDetailHAlign:"right",
+  })
 })
 
 //handle nav-button click task - tab switch
@@ -105,7 +297,7 @@ function handleTab(id, bid) {
 }
 
 //initial table data - warning tab
-function initWarningTable(dataObj){
+function getWarningData(dataObj){
   let tr = "";
   for(let i=0; i<dataObj.length;i++){
     tr+= `<tr><td>${dataObj[i].region}</td>
@@ -117,42 +309,15 @@ function initWarningTable(dataObj){
   $("#warning_data").html(tr)
 }
 
-//initial table data - temperature tab
-function initTemperatureTable(dataObj){
-  let tr = "";
-  for(let i=0; i<dataObj.length;i++){
-    tr+= `<tr><td>${dataObj[i].region}</td>
-              <td>${dataObj[i].temperature}</td>
-              <td>${dataObj[i].warning}</td>
-              <td><p class=''>${dataObj[i].urgent}</p ></td>
-          </tr>`
-  }
-  $("#temperature_data").html(tr)
-}
+//initial table data - for all
+function getData(dataObj){
+  var data = [];
 
-//initial table data - humidity tab
-function initHumidityTable(dataObj){
-  let tr = "";
-  for(let i=0; i<dataObj.length;i++){
-    tr+= `<tr><td>${dataObj[i].region}</td>
-              <td>${dataObj[i].humidity}</td>
-              <td>${dataObj[i].warning}</td>
-              <td><p class=''>${dataObj[i].urgent}</p ></td>
-          </tr>`
-  }
-  $("#humidity_data").html(tr)
-}
+  //push data objects
+  for (var i = 0; i < dataObj.length; i++)
+  {
+    data.push(dataObj[i]);
+  };
 
-//initial table data - data tab
-function initDataTable(dataObj){
-  let tr = "";
-  for(let i=0; i<dataObj.length;i++){
-    tr+= `<tr><td>${dataObj[i].region}</td>
-              <td>${dataObj[i].temperature}</td>
-              <td>${dataObj[i].humidity}</td>
-              <td>${dataObj[i].bushfire_level}</td>
-              <td>${dataObj[i].warning}</td>
-          </tr>`
-  }
-  $("#data_data").html(tr)
+  return data;
 }
