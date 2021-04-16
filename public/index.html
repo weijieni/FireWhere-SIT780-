@@ -14,10 +14,6 @@
 
     <!-- Google Map -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtbKIID5sZzw5lu7otU960DnXQzwtGkG4&callback=initMap&libraries=&v=weekly"
-      async
-    ></script>
     <!-- <link href="style.sass" rel="stylesheet"> -->
     <link href="styles.css" rel="stylesheet">
     <!-- bootstrap -->
@@ -56,14 +52,14 @@
             </div>
 
             <!-- overview (vertor map) tab -->
-            <div class="pages" id="ov">
+            <div class="pages flex" id="ov">
                 <div class="map_container">
                     <div id="map"></div>
                 </div>
             </div>
 
             <!-- conditional prediction tab: temperature subtab -->
-            <div class="pages" id="cp_t">
+            <div class="pages flex" id="cp_t">
                 <div class="dropdown dropdown_extra_2">
                     <label style="margin-right: 10px;">Filtered by&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tenperature</label>
                         <select class="form-select-sm" aria-label="Temperature">
@@ -74,8 +70,8 @@
                             <option value="4">Exceed 40℃</option>
                         </select>
                 </div>
-                <button type="button" class="btn btn-primary btn_extra">Search</button>
-                <button type="button" class="btn btn-secondary btn_extra">Clear</button>
+                <button type="button" class="btn btn-primary btn_extra" style="margin-top: 25px;">Search</button>
+                <button type="button" class="btn btn-secondary btn_extra" style="margin-top: 25px;">Clear</button>
                 <div style="padding: 0 5px;">
                     <table class="table">
                         <thead>
@@ -86,14 +82,7 @@
                             <th scope="col">Urgent</th>
                           </tr>
                         </thead>
-                        <tbody>
-                            <tr class="">
-                                <td>#</td>
-                                <td>#</td>
-                                <td>#</td>
-                                <td><p class="">Urgent</p></td>
-                            </tr>
-                        </tbody>
+                        <tbody id="temperature_data"></tbody>
                     </table>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
@@ -107,8 +96,8 @@
                 </div>
             </div>
 
-            <!-- conditional prediction tab: humidity subtab-->
-            <div class="pages" id="cp_h">
+            <!-- conditional prediction tab: humidity subtab -->
+            <div class="pages flex" id="cp_h">
                 <div class="dropdown dropdown_extra_2">
                     <label style="margin-right: 10px;">Filtered by&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Humidity</label>
                     <select class="form-select-sm" aria-label="Humidity">
@@ -118,8 +107,8 @@
                         <option value="3">Exceed 70%</option>
                     </select>
                 </div>
-                <button type="button" class="btn btn-primary btn_extra">Search</button>
-                <button type="button" class="btn btn-secondary btn_extra">Clear</button>
+                <button type="button" class="btn btn-primary btn_extra" style="margin-top: 25px;">Search</button>
+                <button type="button" class="btn btn-secondary btn_extra" style="margin-top: 25px;">Clear</button>
                 <div style="padding: 0 5px;">
                     <table class="table">
                         <thead>
@@ -130,14 +119,7 @@
                             <th scope="col">Urgent</th>
                           </tr>
                         </thead>
-                        <tbody>
-                            <tr class="">
-                                <td>#</td>
-                                <td>#</td>
-                                <td>#</td>
-                                <td><p class="">Urgent</p></td>
-                            </tr>
-                        </tbody>
+                        <tbody id="humidity_data"></tbody>
                     </table>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
@@ -151,9 +133,11 @@
                 </div>
             </div>
 
-            <div class="pages" id="cp_s">4</div>
+            <!-- conditional prediction tab: season subtab -->
+            <div class="pages flex" id="cp_s">4</div>
+
             <!-- warning tab -->
-            <div class="pages" id="wn">
+            <div class="pages flex" id="wn">
                 <div class="dropdown dropdown_extra_2">
                     <label style="margin-right: 10px;">Filtered by&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Warning Level</label>
                     <select class="form-select-sm" aria-label="Warning">
@@ -178,8 +162,8 @@
                         <option value="6">Western Australia</option>
                     </select>
                 </div>
-                <button type="button" class="btn btn-primary btn_extra">Search</button>
-                <button type="button" class="btn btn-secondary btn_extra">Clear</button>
+                <button type="button" class="btn btn-primary btn_extra" style="margin-top: 25px;">Search</button>
+                <button type="button" class="btn btn-secondary btn_extra" style="margin-top: 25px;">Clear</button>
                 <div style="padding: 0 5px;">
                     <table class="table">
                         <thead>
@@ -190,20 +174,7 @@
                             <th scope="col">Urgent</th>
                           </tr>
                         </thead>
-                        <tbody>
-                            <tr class="">
-                                <td>#</td>
-                                <td>#</td>
-                                <td>#</td>
-                                <td><p class="ifUrgent">Urgent</p></td>
-                            </tr>
-                            <tr class="">
-                                <td>#</td>
-                                <td>#</td>
-                                <td>#</td>
-                                <td><p class="ifUrgent">Nah</p></td>
-                            </tr>
-                        </tbody>
+                        <tbody id="warning_data"></tbody>
                     </table>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
@@ -214,6 +185,24 @@
                           <li class="page-item"><a class="page-link" href="#">Next</a></li>
                         </ul>
                     </nav>
+                </div>
+                <!-- warning message dialog -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Warning Message</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        This is an example warning message.
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Send SMS</button>
+                        </div>
+                    </div>
+                    </div>
                 </div>
             </div>
 
@@ -287,22 +276,7 @@
                             <th scope="col">Warning</th>
                           </tr>
                         </thead>
-                        <tbody>
-                            <tr class="table-danger">
-                                <td>#</td>
-                                <td>#</td>
-                                <td>#</td>
-                                <td>#</td>
-                                <td>Red</td>
-                            </tr>
-                            <tr class="table-info">
-                                <td>#</td>
-                                <td>#</td>
-                                <td>#</td>
-                                <td>#</td>
-                                <td>Blue</td>
-                            </tr>
-                        </tbody>
+                        <tbody id="data_data"></tbody>
                     </table>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
@@ -415,6 +389,11 @@
     <script src="jquery-2.0.0.min.js"></script>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Google Map API -->
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtbKIID5sZzw5lu7otU960DnXQzwtGkG4&callback=initMap&libraries=&v=weekly"
+    async
+    ></script>
     <script src="env.js"></script>
 </body>
 

@@ -51,6 +51,9 @@ input {border:none;}
   height: 100%;
   width: 100%;
 }
+td,th{
+  text-align: center !important;
+}
 /* Customized styles */
 .container_main{
   /* margin: auto; */
@@ -197,6 +200,9 @@ button.btn_selected{
   height: 100%;
   width: 25%;
   max-width: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
   border: 1px solid #000;
 }
 .card_stacked{
