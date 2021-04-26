@@ -260,3 +260,20 @@ button.btn_selected{
   min-height: 90%;
   margin: 5% 5%;
 }
+.map_container:hover{
+  border: 1px solid red;
+}
+.hover_part{
+  display: none;
+  height: 100px;
+  width: 200px;
+  padding: 20px;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+  border-radius: 30px;
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  z-index: 1;
+}

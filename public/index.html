@@ -50,15 +50,19 @@
 
             <!-- overview (vertor map) tab -->
             <div class="pages flex" id="ov">
-                <div class="map_container">
+                <div class="map_container" id="map_container">
                     <div id="map"></div>
+                </div>
+                <div class="hover_part" id="hover_part">
+                    <span>Warning Level: </span><br/>
+                    <span style="color: red;">HIGH</span>
                 </div>
             </div>
 
             <!-- conditional prediction tab: temperature subtab -->
             <div class="pages flex" id="cp_t">
                 <div class="dropdown dropdown_extra_2">
-                    <label style="margin-right: 10px;">Filtered by&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tenperature</label>
+                    <label style="margin-right: 10px;">Filtered by&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Temperature</label>
                         <select class="form-select-sm" aria-label="Temperature">
                             <option value="" selected>All</option>
                             <option value="1">Below 30℃</option>
@@ -74,6 +78,7 @@
                     id="temperature_table"
                     data-height="600"
                     data-pagination="true"
+                    data-search=”true”
                     >
                         <thead>
                             <tr>
@@ -103,6 +108,7 @@
                 <div style="padding: 0 5px;">
                     <table 
                     id="humidity_table"
+                    data-url="/"
                     data-height="600"
                     data-pagination="true"
                     >
@@ -119,7 +125,36 @@
             </div>
 
             <!-- conditional prediction tab: season subtab -->
-            <div class="pages flex" id="cp_s">4</div>
+            <div class="pages flex" id="cp_s">
+                <div class="dropdown dropdown_extra_2">
+                    <label style="margin-right: 10px;">Filtered by&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Season</label>
+                    <select class="form-select-sm" aria-label="Season">
+                        <option value="" selected>All</option>
+                        <option value="1">Spring</option>
+                        <option value="2">Summer</option>
+                        <option value="3">Autumn</option>
+                        <option value="4">Winter</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary btn_extra" style="margin-top: 25px;">Search</button>
+                <button type="button" class="btn btn-secondary btn_extra" style="margin-top: 25px;">Clear</button>
+                <div style="padding: 0 5px;">
+                    <table 
+                    id="season_table"
+                    data-height="600"
+                    data-pagination="true"
+                    >
+                        <thead>
+                            <tr>
+                                <th data-field="region">Region</th>
+                                <th data-field="season">Season</th>
+                                <th data-field="warning">Warning</th>
+                                <th data-field="urgent">Urgent</th>
+                            </tr>
+                        </thead>   
+                    </table>
+                </div>
+            </div>
 
             <!-- warning tab -->
             <div class="pages flex" id="wn">
@@ -267,22 +302,6 @@
             <div class="pages" id="rs">
                 <div class="research_box">
                     <div id="research_cards"></div>
-                    <!-- <div class="research_card">
-                        <h3 class="card_header">This is a header</h3>
-                        <div class="card_main">
-                          <div class="card_image">
-                            <img src="assets/1.jpg">
-                          </div>
-                          <div class="card_stacked">
-                            <div class="card_content">
-                              <p>This is the content</p>
-                            </div>
-                            <div class="card_action">
-                              <a class="link" href="#">This is the link</a>
-                            </div>
-                          </div>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>

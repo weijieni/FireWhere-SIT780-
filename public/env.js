@@ -1,6 +1,7 @@
 // connect to the socket
 let socket = io();
 
+
 // datasets for test
 let warning_data = [
   {
@@ -13,7 +14,7 @@ let warning_data = [
 let temperature_data = [
   {
     region: "VIC",
-    temperature: "38",
+    temperature: "45",
     warning: "Red",
     urgent: "Urgent"
   },
@@ -25,7 +26,7 @@ let temperature_data = [
   },
   {
     region: "VIC",
-    temperature: "38",
+    temperature: "45",
     warning: "Red",
     urgent: "Urgent"
   },
@@ -227,12 +228,20 @@ let temperature_data = [
   },
 ]
 let humidity_data = [
+  // {
+  //   id: 0,
+  //   region: "VIC",
+  //   humidity: "70",
+  //   warning: "blue",
+  //   urgent: "Nah"
+  // }
+]
+let season_data = [
   {
-    id: 0,
-    region: "VIC",
-    humidity: "70",
-    warning: "blue",
-    urgent: "Nah"
+    region: "NSW",
+    season: "Summer",
+    warning: "red",
+    urgent: "urgent"
   }
 ]
 let data_data = [
@@ -329,13 +338,13 @@ $(function() {
     }
   })
 
-  //handle urgent text color
-  // console.log(ifUrgent.text())
-  // if (ifUrgent.text() == "Urgent") {
-  //   ifUrgent.css("color", "orange")
-  // } else {
-  //   ifUrgent.css("color", "green")
-  // }
+  //handle hover events
+  $('#map_container').mouseover(function() {
+    $('#hover_part').show(300)
+  })
+  $('#map_container').mouseout(function() {
+    $('#hover_part').hide(300)
+  })
 
   //create tables
   $('#warning_table').bootstrapTable({
@@ -349,7 +358,13 @@ $(function() {
   })
 
   $('#humidity_table').bootstrapTable({
-    data: humidity_data,
+    url:'/',
+    method: "get",
+    classes: 'table'
+  })
+
+  $('#season_table').bootstrapTable({
+    data: season_data,
     classes: 'table'
   })
 
@@ -407,29 +422,3 @@ function addCards(dataObj) {
   }
   $('#research_cards').html(div)
 }
-
-// //initial table data - warning tab
-// function getWarningData(dataObj){
-//   let tr = "";
-//   for(let i=0; i<dataObj.length;i++){
-//     tr+= `<tr><td>${dataObj[i].region}</td>
-//               <td>${dataObj[i].warning}</td>
-//               <td><button class='' data-bs-toggle="modal" data-bs-target="#staticBackdrop">${dataObj[i].warning_message}</button></td>
-//               <td><p class=''>${dataObj[i].urgent}</p ></td>
-//           </tr>`
-//   }
-//   $("#warning_data").html(tr)
-// }
-
-//initial table data - for all
-// function getData(dataObj){
-//   var data = [];
-
-//   //push data objects
-//   for (var i = 0; i < dataObj.length; i++)
-//   {
-//     data.push(dataObj[i]);
-//   };
-
-//   return data;
-// }
