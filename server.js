@@ -1,18 +1,21 @@
 const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require("body-parser");
+// const mongoose = require ('mongoose')
 let express = require("express");
 let app = express();
 
-let TestModel = require('./model/testDb');
+const Humiditys = require('./model/testDb')
+// let test = require('./model/test');
 
 let http = require('http').createServer(app);
 let io = require('socket.io')(http);
 
 
 
-
 // connect Mongodb Atlas
 const uri = "mongodb+srv://admin_wni:020419Ni@fwcluster.gzfkv.mongodb.net/FWCluster?retryWrites=true&w=majority";
+// const uri = "mongodb://localhost:27017";
+
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 let testCollection;
@@ -73,6 +76,28 @@ const insertData = (req,res) => {
     } else {console.log(err)}
   })
 };
+
+// insert test data --Yang
+app.post('/api/datainsert', async (req,res)=>{
+  console.log(req.body)
+  
+  const { region, humidity, warning, urgent} = req.body
+  try {
+       const response = await Humiditys.create({
+         region,
+         humidity,
+         warning,
+         urgent
+       })
+       console.log('test data created successfully: ', response)
+  } catch (error) {
+    console.log(error)
+    return res.json({ statud: 'error'})
+  }
+
+  res.json({status:'ok'})
+
+})
 
 // get test data
 const getData = (res) => {
