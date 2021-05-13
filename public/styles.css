@@ -175,6 +175,16 @@ button.btn_selected{
   justify-content: center;
   border: 1px solid #000;
 }
+.research_box{
+  height: 90%;
+  width: 90%;
+  margin: 50px 40px;
+  display: inline-block;
+  overflow: auto;
+  white-space: nowrap;
+  justify-content: center;
+  border: 1px solid #000;
+}
 .research_card{
   height: 180px;
   width: 90%;
