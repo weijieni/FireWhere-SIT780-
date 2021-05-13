@@ -36,6 +36,7 @@
                 <li><button id="navbutton_5" class="navbutton" onclick="handleTab('#wn', '#navbutton_5')">Warnings</button></li>
                 <li><button id="navbutton_6" class="navbutton" onclick="handleTab('#dt', '#navbutton_6')">Data</button></li>
                 <li><button id="navbutton_7" class="navbutton" onclick="handleTab('#rs', '#navbutton_7')">Research</button></li>
+                <li><button id="navbutton_8" class="navbutton" onclick="handleTab('#us', '#navbutton_8')">Sign up your detail!</button></li>
             </ul>
         </div>
 
@@ -304,8 +305,50 @@
                     <div id="research_cards"></div>
                 </div>
             </div>
+            <!-- user sign up tab -->
+            <div class="pages flex" id="us">
+                <div class="container" style="margin-top: 50px">
+                    <form id="us-form">
+                    <div class="form-floating mb-3">
+                        <input type="phone" class="form-control" id="phone" placeholder="Phone">
+                        <label for="floatingInput">Phone number</label>
+                      </div>
+                      <div class="form-floating">
+                        <input type="region" class="form-control" id="region" placeholder="Region">
+                        <label for="floatingRegion">Region</label>
+                      </div>
+                      <br>
+                      <div class="card text-center">
+                      <button type="submit" class="btn btn-primary btn-lg">Sign up Now</button> </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- user details insert -->
+    <script>
+        const form = document.getElementById('us-form')
+        form.addEventListener('submit',registerUser)
+        
+        async function registerUser(event) {
+            event.preventDefault()
+            const phone = document.getElementById('phone').value
+            const region = document.getElementById('region').value
+
+            const result = await fetch('/api/userdetail', {
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    phone,
+                    region
+                })
+            }).then((res) => res.json())
+            console.log(result)
+        }
+    </script>
 
 
 

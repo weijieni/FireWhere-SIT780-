@@ -21,5 +21,33 @@ const HumiditysSchema = new mongoose.Schema({
 { collection:'humidity' }
 )
 
+const TemperaturesSchema = new mongoose.Schema({
+    region: {type: String},
+    tempereture: {type: String},
+    warning: {type: String},
+    urgent: {type: String}
+},
+{ collection:'temperature' }
+)
+
+const SeasonsSchema = new mongoose.Schema({
+    region: {type: String},
+    season: {type: String},
+    warning: {type: String},
+    urgent: {type: String}
+},
+{ collection:'season' }
+)
+
+const UserSchema = new mongoose.Schema({
+    phone: {type: String},
+    region: {type: String},
+},
+{ collection:'user' }
+)
+
 module.exports = mongoose.model('HumiditysSchema', HumiditysSchema);
+module.exports = mongoose.model('TemperaturesSchema', TemperaturesSchema);
+module.exports = mongoose.model('SeasonsSchema', SeasonsSchema);
+module.exports = mongoose.model('UserSchema', UserSchema);
   
