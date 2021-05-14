@@ -362,10 +362,10 @@ $(function() {
   //   classes: 'table'
   // })
 
-  $('#season_table').bootstrapTable({
-    data: season_data,
-    classes: 'table'
-  })
+  // $('#season_table').bootstrapTable({
+  //   data: season_data,
+  //   classes: 'table'
+  // })
 
   $('#data_table').bootstrapTable({
     data: data_data,

@@ -143,15 +143,16 @@
                 <div style="padding: 0 5px;">
                     <table 
                     id="season_table"
+                    data-search="true"
                     data-height="600"
                     data-pagination="true"
                     >
                         <thead>
                             <tr>
-                                <th data-field="region">Region</th>
-                                <th data-field="season">Season</th>
-                                <th data-field="warning">Warning</th>
-                                <th data-field="urgent">Urgent</th>
+                                <th data-sortable="true" data-field="region" data-title="Region"></th>
+                                <th data-sortable="true" data-field="season">Season</th>
+                                <th data-sortable="true" data-field="warning">Warning</th>
+                                <th data-sortable="true" data-field="urgent">Urgent</th>
                             </tr>
                         </thead>   
                     </table>
@@ -359,6 +360,11 @@
     $(humidity_table).bootstrapTable({
         classes: 'table',
         url: '/api/gethumidity'
+    });
+
+    $(season_table).bootstrapTable({
+        classes: 'table',
+        url: '/api/getseason'
     });
     </script>
 
