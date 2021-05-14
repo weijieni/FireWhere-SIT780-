@@ -5,9 +5,9 @@ let express = require("express");
 let app = express()
 const axios = require('axios')
 
-const Humiditys = require('./model/testDb')
-const Temperatures = require('./model/testDb')
-const Seasons = require('./model/testDb')
+const Humidity = require('./model/humidity')
+const Temperature = require('./model/temperature')
+const Season = require('./model/season')
 const User = require('./model/testDb')
 // let test = require('./model/test');
 
@@ -87,7 +87,7 @@ app.post('/api/humidityinsert', async (req,res)=>{
   
   const { region, humidity, warning, urgent} = req.body
   try {
-       const response = await Humiditys.create({
+       const response = await Humidity.create({
          region,
          humidity,
          warning,
@@ -108,7 +108,7 @@ app.post('/api/temperatureinsert', async (req,res)=>{
   
   const { region, tempereture, warning, urgent} = req.body
   try {
-       const response = await Temperatures.create({
+       const response = await Temperature.create({
          region,
          tempereture,
          warning,
@@ -129,7 +129,7 @@ app.post('/api/seasoninsert', async (req,res)=>{
   
   const { region, season, warning, urgent} = req.body
   try {
-       const response = await Seasons.create({
+       const response = await Season.create({
          region,
          season,
          warning,
@@ -163,8 +163,62 @@ app.post('/api/userdetail', async (req,res)=>{
 
   res.json({status:'ok'})
 
-}) 
+})
 
+// get humidity data
+app.get("/api/gethumidity", (req,res) => {
+  Humidity.find({}, (err, humidity) => {
+    if (err) {
+      //Return 400 for unspecified failure
+      return res.status(400).json({ success: false, error: err });
+    }
+    if (!humidity.length) {
+      //return 404 error if no entries found
+      return res
+        .status(404)
+        .json({ success: false, error: "Database empty" });
+    }
+    //otherwise, return 200 with list of clients
+    return res.status(200).json({ success: true, data: humidity });
+  }).catch((err) => console.log(err));
+})
+      
+// get temperature data
+app.get("/api/gettemperature", (req,res) => {
+  Temperature.find({}, (err, temperature) => {
+    if (err) {
+      //Return 400 for unspecified failure
+      return res.status(400).json({ success: false, error: err });
+    }
+    if (!temperature.length) {
+      //return 404 error if no entries found
+      return res
+        .status(404)
+        .json({ success: false, error: "Database empty" });
+    }
+    //otherwise, return 200 with list of clients
+    return res.status(200).json({ success: true, data: temperature });
+  }).catch((err) => console.log(err));
+})
+   
+// get season data
+app.get("/api/getseason", (req,res) => {
+  Season.find({}, (err, season) => {
+    if (err) {
+      //Return 400 for unspecified failure
+      return res.status(400).json({ success: false, error: err });
+    }
+    if (!season.length) {
+      //return 404 error if no entries found
+      return res
+        .status(404)
+        .json({ success: false, error: "Database empty" });
+    }
+    //otherwise, return 200 with list of clients
+    return res.status(200).json({ success: true, data: season });
+  }).catch((err) => console.log(err));
+})
+   
 
 // get test data
 const getData = (res) => {
