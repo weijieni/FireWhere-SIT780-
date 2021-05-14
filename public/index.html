@@ -111,14 +111,15 @@
                     id="humidity_table"
                     data-url=""
                     data-height="600"
+                    data-search="true"
                     data-pagination="true"
                     >
                         <thead>
                             <tr>
-                                <th data-sortable="true" data-field="region">Region</th>
-                                <th data-field="humidity">Humidity</th>
-                                <th data-field="warning">Warning</th>
-                                <th data-field="urgent">Urgent</th>
+                                <th data-sortable="true" data-field="region" data-title="Region"></th>
+                                <th data-sortable="true" data-field="humidity">Humidity</th>
+                                <th data-sortable="true" data-field="warning">Warning</th>
+                                <th data-sortable="true" data-field="urgent">Urgent</th>
                             </tr>
                         </thead>                           
                     </table>
@@ -356,6 +357,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.js"></script>
     <script>
     $(humidity_table).bootstrapTable({
+        classes: 'table',
         url: '/api/gethumidity'
     });
     </script>

@@ -357,11 +357,10 @@ $(function() {
     classes: 'table'
   })
 
-  $('#humidity_table').bootstrapTable({
-    url:'/',
-    method: "get",
-    classes: 'table'
-  })
+  // $('#humidity_table').bootstrapTable({
+  //   url: '/api/gethumidity',
+  //   classes: 'table'
+  // })
 
   $('#season_table').bootstrapTable({
     data: season_data,
