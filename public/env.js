@@ -352,20 +352,20 @@ $(function() {
     classes: 'table'
   })
 
-  $('#temperature_table').bootstrapTable({
-    data: temperature_data,
-    classes: 'table'
-  })
+  // $('#temperature_table').bootstrapTable({
+  //   data: temperature_data,
+  //   classes: 'table'
+  // })
 
   // $('#humidity_table').bootstrapTable({
   //   url: '/api/gethumidity',
   //   classes: 'table'
   // })
 
-  $('#season_table').bootstrapTable({
-    data: season_data,
-    classes: 'table'
-  })
+  // $('#season_table').bootstrapTable({
+  //   data: season_data,
+  //   classes: 'table'
+  // })
 
   $('#data_table').bootstrapTable({
     data: data_data,

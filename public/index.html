@@ -19,34 +19,48 @@
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <body>
     <div class="container_main flex">
         <!-- side nav bar -->
         <div class="navsection">
+            <header class="flex" style="justify-content: center; align-items: center;">
+                <a href="#"><img src="assets/logo.png"/></a>
+            </header>
             <ul class="navcontent">
-                <li><button id="navbutton_1" class="navbutton" onclick="handleTab('#ov', '#navbutton_1')">Overview</button></li>
+                <li><button id="navbutton_1" class="navbutton" onclick="handleTab('#ov', '#navbutton_1')"><img class="btn_icon" src="assets/map.png"/>Overview</button></li>
                 <li>
-                    <a href="#" class="li_a" id="nav_dev">Conditional Prediction</a >
+                    <a href="#" class="li_a" id="nav_dev"><img class="btn_icon" src="assets/predict.png"/>Conditional Prediction</a >
                     <div class="nav_box" id="dev_item" style="display: none;">
-                        <button id="navbutton_2" onclick="handleTab('#cp_t', '#navbutton_2')" class="nav_item navbutton">Temperature</button>
-                        <button id="navbutton_3" onclick="handleTab('#cp_h', '#navbutton_3')" class="nav_item navbutton">Humidity</button>
-                        <button id="navbutton_4" onclick="handleTab('#cp_s', '#navbutton_4')" class="nav_item navbutton">Season</button>
+                        <button id="navbutton_2" onclick="handleTab('#cp_t', '#navbutton_2')" class="nav_item navbutton"><img class="btn_icon" src="assets/tempereture.png"/>Temperature</button>
+                        <button id="navbutton_3" onclick="handleTab('#cp_h', '#navbutton_3')" class="nav_item navbutton"><img class="btn_icon" src="assets/humidity.png"/>Humidity</button>
+                        <button id="navbutton_4" onclick="handleTab('#cp_s', '#navbutton_4')" class="nav_item navbutton"><img class="btn_icon" src="assets/season.png"/>Season</button>
                     </div>
                 </li>
-                <li><button id="navbutton_5" class="navbutton" onclick="handleTab('#wn', '#navbutton_5')">Warnings</button></li>
-                <li><button id="navbutton_6" class="navbutton" onclick="handleTab('#dt', '#navbutton_6')">Data</button></li>
-                <li><button id="navbutton_7" class="navbutton" onclick="handleTab('#rs', '#navbutton_7')">Research</button></li>
-                <li><button id="navbutton_8" class="navbutton" onclick="handleTab('#us', '#navbutton_8')">Sign up your detail!</button></li>
+                <li><button id="navbutton_5" class="navbutton" onclick="handleTab('#wn', '#navbutton_5')"><img class="btn_icon" src="assets/warning.png"/>Warnings</button></li>
+                <li><button id="navbutton_6" class="navbutton" onclick="handleTab('#dt', '#navbutton_6')"><img class="btn_icon" src="assets/data.png"/>Data</button></li>
+                <li><button id="navbutton_7" class="navbutton" onclick="handleTab('#rs', '#navbutton_7')"><img class="btn_icon" src="assets/research.png"/>Research</button></li>
+                <li><button id="navbutton_8" class="navbutton" onclick="handleTab('#us', '#navbutton_8')"><img class="btn_icon" src="assets/signup.png"/>Sign up your detail!</button></li>
             </ul>
         </div>
 
         <!-- tab pages -->
-        <div class="mainsection flex">
-            <a href="#" class="nav_icon"><i class="medium material-icons">reorder</i></a>
+        <div class="mainsection flex" style="flex-direction: column;">
+            <nav class="navtop">
+                <a href="#" class="nav_icon"><i class="medium material-icons">reorder</i></a>
+                <div style="display: flex; flex-direction: row; align-items: center;">
+                    <img style="min-width: 16px; min-height: 16px; height: 16px; width: 16px;" src="assets/user.png"/>
+                    <div style="min-width: auto; min-height: 16px; height: 16px; width: auto; padding-left: 12px; padding-right: 12px;"> 
+                        <p>Online Users: 8</p>
+                    </div>
+                </div>
+            </nav>
 
             <!-- welcome -->
-            <div class="pages" id="welcome" style="display: flex; justify-content: center; align-items: center;">
-                <h1>Welcome!</h1>
+            <div class="pages" id="welcome" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <img src="assets/logo2.png"/><br>
+                <h2>A bushfire prediction and warning system. Welcome!</h2>
             </div>
 
             <!-- overview (vertor map) tab -->
@@ -62,7 +76,7 @@
 
             <!-- conditional prediction tab: temperature subtab -->
             <div class="pages flex" id="cp_t">
-                <div class="dropdown dropdown_extra_2">
+                <!-- <div class="dropdown dropdown_extra_2">
                     <label style="margin-right: 10px;">Filtered by&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Temperature</label>
                         <select class="form-select-sm" aria-label="Temperature">
                             <option value="" selected>All</option>
@@ -71,9 +85,9 @@
                             <option value="3">35℃ - 40℃</option>
                             <option value="4">Exceed 40℃</option>
                         </select>
-                </div>
-                <button type="button" class="btn btn-primary btn_extra" style="margin-top: 25px;">Search</button>
-                <button type="button" class="btn btn-secondary btn_extra" style="margin-top: 25px;">Clear</button>
+                </div> -->
+                <!-- <button type="button" class="btn btn-primary btn_extra" style="margin-top: 25px;">Search</button>
+                <button type="button" class="btn btn-secondary btn_extra" style="margin-top: 25px;">Clear</button> -->
                 <div style="padding: 0 5px;">
                     <table 
                     id="temperature_table"
@@ -95,7 +109,7 @@
 
             <!-- conditional prediction tab: humidity subtab -->
             <div class="pages flex" id="cp_h">
-                <div class="dropdown dropdown_extra_2">
+                <!-- <div class="dropdown dropdown_extra_2">
                     <label style="margin-right: 10px;">Filtered by&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Humidity</label>
                     <select class="form-select-sm" aria-label="Humidity">
                         <option value="" selected>All</option>
@@ -105,11 +119,10 @@
                     </select>
                 </div>
                 <button type="button" class="btn btn-primary btn_extra" style="margin-top: 25px;">Search</button>
-                <button type="button" class="btn btn-secondary btn_extra" style="margin-top: 25px;">Clear</button>
+                <button type="button" class="btn btn-secondary btn_extra" style="margin-top: 25px;">Clear</button> -->
                 <div style="padding: 0 5px;">
                     <table 
                     id="humidity_table"
-                    data-url=""
                     data-height="600"
                     data-search="true"
                     data-pagination="true"
@@ -128,7 +141,7 @@
 
             <!-- conditional prediction tab: season subtab -->
             <div class="pages flex" id="cp_s">
-                <div class="dropdown dropdown_extra_2">
+                <!-- <div class="dropdown dropdown_extra_2">
                     <label style="margin-right: 10px;">Filtered by&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Season</label>
                     <select class="form-select-sm" aria-label="Season">
                         <option value="" selected>All</option>
@@ -139,10 +152,11 @@
                     </select>
                 </div>
                 <button type="button" class="btn btn-primary btn_extra" style="margin-top: 25px;">Search</button>
-                <button type="button" class="btn btn-secondary btn_extra" style="margin-top: 25px;">Clear</button>
+                <button type="button" class="btn btn-secondary btn_extra" style="margin-top: 25px;">Clear</button> -->
                 <div style="padding: 0 5px;">
                     <table 
                     id="season_table"
+                    data-search="true"
                     data-height="600"
                     data-pagination="true"
                     >
@@ -351,15 +365,31 @@
         }
     </script>
 
-    <!-- fetch data from humidity -->
+    <!-- fetch data from database -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.js"></script>
     <script>
-    $(humidity_table).bootstrapTable({
-        classes: 'table',
-        url: '/api/gethumidity'
-    });
+        // humidity data
+        $(humidity_table).bootstrapTable({
+            classes: 'table',
+            url: '/api/gethumidity'
+        });
+        // temperature data
+        $(temperature_table).bootstrapTable({
+            classes: 'table',
+            url: '/api/gettemperature'
+        });
+        // season data
+        $(season_table).bootstrapTable({
+            classes: 'table',
+            url: '/api/getseason'
+        });
+        // warning data
+        // $(warning_table).bootstrapTable({
+        //     classes: 'table',
+        //     url: '/api/getwaring'
+        // });
     </script>
 
 
