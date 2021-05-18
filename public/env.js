@@ -11,293 +11,11 @@ let warning_data = [
     urgent: "Urgent"
   }
 ]
-let temperature_data = [
-  {
-    region: "VIC",
-    temperature: "45",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    region: "VIC",
-    temperature: "45",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 3,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 4,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "38",
-    warning: "Red",
-    urgent: "Urgent"
-  },
-]
-let humidity_data = [
-  // {
-  //   id: 0,
-  //   region: "VIC",
-  //   humidity: "70",
-  //   warning: "blue",
-  //   urgent: "Nah"
-  // }
-]
-let season_data = [
-  {
-    region: "NSW",
-    season: "Summer",
-    warning: "red",
-    urgent: "urgent"
-  }
-]
-let data_data = [
-  {
-    id: 0,
-    region: "VIC",
-    temperature: "40",
-    humidity: "40",
-    bushfire_level: "Extreme",
-    warning: "Red",
-  }
-]
-let card_data = [
-  {
-    id: 0,
-    header: "This is the header",
-    imageUrl: "assets/1.jpg",
-    content: "This is the content",
-    link: "#"
-  },
-  {
-    id: 0,
-    header: "This is the header",
-    imageUrl: "assets/1.jpg",
-    content: "This is the content",
-    link: "#"
-  },
-  {
-    id: 1,
-    header: "This is the header",
-    imageUrl: "assets/1.jpg",
-    content: "This is the content",
-    link: "#"
-  },
-  {
-    id: 2,
-    header: "This is the header",
-    imageUrl: "assets/1.jpg",
-    content: "This is the content",
-    link: "#"
-  },
-  {
-    id: 3,
-    header: "This is the header",
-    imageUrl: "assets/1.jpg",
-    content: "This is the content",
-    link: "#"
-  },
-  {
-    id: 4,
-    header: "This is the header",
-    imageUrl: "assets/1.jpg",
-    content: "This is the content",
-    link: "#"
-  },
-]
+let temperature_data
+let humidity_data
+let season_data
+let data_data 
+let card_data
 
 socket.on('number', (msg) => {
 })
@@ -396,23 +114,47 @@ function operateFormatter(value, row, index) {
   `
 }
 
+//ajax
+$.ajax({
+  type: "GET",
+  url: '/api/getcard',
+  dataType: "json",
+  async: false,
+  data: {},
+  success: function (data) {
+      //var datas = JSON.stringify(data);
+      // var datas = JSON.parse(data);
+      //eval("(" + data + ")");
+      card_data = data.data
+  },
+  error(error){
+      console.log(error);
+  }
+});
+
 //create research cards html
-function addCards(dataObj) {
+function addCards(card_data) {
   let div = ""
-  for (let i=0; i<dataObj.length;i++) {
+  for (let i=0; i<card_data.length;i++) {
     div += `
     <div class="research_card">
-      <h3 class="card_header">${dataObj[i].header}</h3>
-        <div class="card_main">
-          <div class="card_image">
-            <img src="${dataObj[i].imageUrl}">
-          </div>
+    <div class="card_main">
+      <div class="card_image">
+        <img class="image_pic" src="${card_data[i].imageUrl}">
+        <div class="card_image_after">&nbsp;</div>
+        </div>
           <div class="card_stacked">
-            <div class="card_content">
-              <p>${dataObj[i].content}</p>
+            <div class="card_header">
+              <h3>${card_data[i].header}</h3>
+              <div class="category">${card_data[i].category}</div>
             </div>
+            <div class="stack_line">&nbsp;</div>
+            <div class="card_content">
+              ${card_data[i].content}
+            </div>
+            <div class="stack_line">&nbsp;</div>
             <div class="card_action">
-              <a class="link" href="${dataObj[i].link}">This is the link</a>
+              <a class="link" href="${card_data[i].link}">This is the link</a>
             </div>
           </div>
         </div>

@@ -9,6 +9,7 @@ const Humidity = require('./model/humidity')
 const Temperature = require('./model/temperature')
 const Season = require('./model/season')
 const User = require('./model/testDb')
+const Research = require('./model/research')
 // let test = require('./model/test');
 
 let http = require('http').createServer(app);
@@ -96,7 +97,7 @@ app.post('/api/humidityinsert', async (req,res)=>{
        console.log('test data created successfully: ', response)
   } catch (error) {
     console.log(error)
-    return res.json({ statud: 'error'})
+    return res.json({ status: 'error'})
   }
 
   res.json({status:'ok'})
@@ -117,7 +118,7 @@ app.post('/api/temperatureinsert', async (req,res)=>{
        console.log('test data created successfully: ', response)
   } catch (error) {
     console.log(error)
-    return res.json({ statud: 'error'})
+    return res.json({ status: 'error'})
   }
 
   res.json({status:'ok'})
@@ -138,7 +139,7 @@ app.post('/api/seasoninsert', async (req,res)=>{
        console.log('test data created successfully: ', response)
   } catch (error) {
     console.log(error)
-    return res.json({ statud: 'error'})
+    return res.json({ status: 'error'})
   }
 
   res.json({status:'ok'})
@@ -229,6 +230,43 @@ const getData = (res) => {
   // collection = testCollection;
 }
 
+// research cards
+app.post('/api/cardinsert', async (req,res)=>{
+  const { header, imageUrl, category, content, link} = req.body
+  try {
+       const response = await Research.create({
+        header,
+        imageUrl,
+        category,
+        content,
+        link
+       })
+       console.log('test data created successfully: ', response)
+  } catch (error) {
+    console.log(error)
+    return res.json({ status: 'error'})
+  }
+
+  res.json({status:'ok'})
+
+})
+
+app.get("/api/getcard", (req,res) => {
+  Research.find({}, (err, research) => {
+    if (err) {
+      //Return 400 for unspecified failure
+      return res.status(400).json({ success: false, error: err });
+    }
+    if (!research.length) {
+      //return 404 error if no entries found
+      return res
+        .status(404)
+        .json({ success: false, error: "Database empty" });
+    }
+    //otherwise, return 200 with list of clients
+    return res.status(200).json({ success: true, data: research });
+  }).catch((err) => console.log(err));
+})
 
 // socket test
 io.on('connection', (socket) => {
