@@ -16,7 +16,6 @@ let http = require('http').createServer(app);
 let io = require('socket.io')(http);
 
 
-
 // connect Mongodb Atlas
 const uri = "mongodb+srv://admin_wni:020419Ni@fwcluster.gzfkv.mongodb.net/FWCluster?retryWrites=true&w=majority";
 // const uri = "mongodb://localhost:27017";
