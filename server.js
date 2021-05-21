@@ -14,10 +14,10 @@ const Research = require('./model/research')
 let http = require('http').createServer(app);
 let io = require('socket.io')(http);
 
-import jQuery from 'jquery'
-import a from './public/SMS'
-console.log(jQuery)
-console.log(a)
+// import jQuery from 'jquery'
+// import a from './public/SMS'
+// console.log(jQuery)
+// console.log(a)
 
 
 // connect Mongodb Atlas

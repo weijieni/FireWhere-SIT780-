@@ -1,7 +1,7 @@
 /* Some standard styles */
 html{
   margin: auto;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 /* body {
   font-family: Arial, Helvetica, sans-serif;
