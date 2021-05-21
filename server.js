@@ -10,10 +10,14 @@ const Temperature = require('./model/temperature')
 const Season = require('./model/season')
 const User = require('./model/testDb')
 const Research = require('./model/research')
-// let test = require('./model/test');
 
 let http = require('http').createServer(app);
 let io = require('socket.io')(http);
+
+import jQuery from 'jquery'
+import a from './public/SMS'
+console.log(jQuery)
+console.log(a)
 
 
 // connect Mongodb Atlas
@@ -285,4 +289,5 @@ http.listen(port,()=>{
 });
 
 //this is only needed for Cloud foundry 
-require("cf-deployment-tracker-client").track();
+// require("cf-deployment-tracker-client").track();
+

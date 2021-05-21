@@ -10,18 +10,8 @@ let warning_data = [
     urgent: "Urgent"
   }
 ]
-let temperature_data
-let humidity_data
-let season_data
-let data_data 
-let card_data
-let VIC = []
-let NSW = []
-let QLD = []
-let NT = []
-let SA = []
-let WA = []
-let TAS = []
+let temperature_data, humidity_data, season_data, data_data, card_data
+let VIC, NSW, QLD, NT, SA, WA, TAS = []
 
 socket.on('number', (msg) => {
 })
@@ -31,6 +21,21 @@ console.log('test')
 // jQuery
 $(function() {
   var ifUrgent = $('.ifUrgent')
+
+  // $('#send').on('click', function() {
+  //   console.log("click")
+  //   vonage.message.sendSms(from, to, text, (err, responseData) => {
+  //       if (err) {
+  //           console.log(err);
+  //       } else {
+  //           if(responseData.messages[0]['status'] === "0") {
+  //               console.log("Message sent successfully.");
+  //           } else {
+  //               console.log(`Message failed with error: ${responseData.messages[0]['error-text']}`);
+  //           }
+  //       }
+  //   })
+  // })
 
   //handle nav-list click task
   $('#nav_dev').click(function() {
@@ -107,7 +112,9 @@ function handleTab(id, bid) {
 //customize data format
 function operateFormatter(value, row, index) {
   return `
-  <button class="" data-bs-toggle="modal" data-bs-target="#staticBackdrop">${warning_data[index].warning_message}</button>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  ${warning_data[index].warning_message}
+</button>
   `
 }
 
