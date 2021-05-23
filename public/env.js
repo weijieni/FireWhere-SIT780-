@@ -21,22 +21,6 @@ console.log('test')
 // jQuery
 $(function() {
   var ifUrgent = $('.ifUrgent')
-
-  // $('#send').on('click', function() {
-  //   console.log("click")
-  //   vonage.message.sendSms(from, to, text, (err, responseData) => {
-  //       if (err) {
-  //           console.log(err);
-  //       } else {
-  //           if(responseData.messages[0]['status'] === "0") {
-  //               console.log("Message sent successfully.");
-  //           } else {
-  //               console.log(`Message failed with error: ${responseData.messages[0]['error-text']}`);
-  //           }
-  //       }
-  //   })
-  // })
-
   //handle nav-list click task
   $('#nav_dev').click(function() {
     var dev_item = $('#dev_item')
@@ -56,35 +40,12 @@ $(function() {
       nav_bar.fadeOut(300)
     }
   })
-
-  //handle hover events
-  $('#map_container').mouseover(function() {
-    $('#hover_part').show(300)
-  })
-  $('#map_container').mouseout(function() {
-    $('#hover_part').hide(300)
-  })
-
+  
   //create tables
   $('#warning_table').bootstrapTable({
     data: warning_data,
     classes: 'table'
   })
-
-  // $('#temperature_table').bootstrapTable({
-  //   data: temperature_data,
-  //   classes: 'table'
-  // })
-
-  // $('#humidity_table').bootstrapTable({
-  //   url: '/api/gethumidity',
-  //   classes: 'table'
-  // })
-
-  // $('#season_table').bootstrapTable({
-  //   data: season_data,
-  //   classes: 'table'
-  // })
 
   $('#data_table').bootstrapTable({
     data: data_data,
@@ -112,148 +73,56 @@ function handleTab(id, bid) {
 //customize data format
 function operateFormatter(value, row, index) {
   return `
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  ${warning_data[index].warning_message}
-</button>
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">${warning_data[index].warning_message}</button>
   `
 }
 
 //ajax
-$.ajax({
-  type: "GET",
+let ajax_region_Arr = [VIC, NSW, QLD, NT, SA, WA, TAS]
+let ajax_param_Arr = [
+  {url: './module/VIC.json', data: VIC },
+  { url: './module/NSW.json', data: NSW }, 
+  { url: './module/QLD.json', data: QLD }, 
+  { url: './module/NT.json', data: NT },
+  { url: './module/SA.json', data: SA },
+  { url: './module/WA.json', data: WA },
+  { url: './module/TAS.json', data: TAS }
+]
+
+// data request ajax
+function request(params) {
+  $.ajax({
+        type: "GET",
+        url:params.url,
+        dataType: "json",
+        async: false,
+        data: {},
+        success: (data) => {
+          params.callBack(data)
+        },
+        error(error){
+          console.log(error);
+        }
+    });
+}
+
+// request from cloud
+request({
   url: '/api/getcard',
-  dataType: "json",
-  async: false,
-  data: {},
-  success: function (data) {
-      //var datas = JSON.stringify(data);
-      // var datas = JSON.parse(data);
-      //eval("(" + data + ")");
-      card_data = data.data
-  },
-  error(error){
-      console.log(error);
+  callBack: res => {
+    card_data = res.data
   }
-});
-$.ajax({
-  type: "GET",
-  url: './module/VIC.json',
-  dataType: "json",
-  async: false,
-  data: {},
-  success: function (obj) {
-      //var datas = JSON.stringify(data);
-      // var datas = JSON.parse(data);
-      //eval("(" + data + ")");
-      // console.log(obj)
-      VIC = obj
-  },
-  error(error){
-      console.log(error);
-  }
-});
-$.ajax({
-  type: "GET",
-  url: './module/NSW.json',
-  dataType: "json",
-  async: false,
-  data: {},
-  success: function (obj) {
-      //var datas = JSON.stringify(data);
-      // var datas = JSON.parse(data);
-      //eval("(" + data + ")");
-      // console.log(obj)
-      NSW = obj
-  },
-  error(error){
-      console.log(error);
-  }
-});
-$.ajax({
-  type: "GET",
-  url: './module/QLD.json',
-  dataType: "json",
-  async: false,
-  data: {},
-  success: function (obj) {
-      //var datas = JSON.stringify(data);
-      // var datas = JSON.parse(data);
-      //eval("(" + data + ")");
-      // console.log(obj)
-      QLD = obj
-  },
-  error(error){
-      console.log(error);
-  }
-});
-$.ajax({
-  type: "GET",
-  url: './module/NT.json',
-  dataType: "json",
-  async: false,
-  data: {},
-  success: function (obj) {
-      //var datas = JSON.stringify(data);
-      // var datas = JSON.parse(data);
-      //eval("(" + data + ")");
-      // console.log(obj)
-      NT = obj
-  },
-  error(error){
-      console.log(error);
-  }
-});
-$.ajax({
-  type: "GET",
-  url: './module/SA.json',
-  dataType: "json",
-  async: false,
-  data: {},
-  success: function (obj) {
-      //var datas = JSON.stringify(data);
-      // var datas = JSON.parse(data);
-      //eval("(" + data + ")");
-      // console.log(obj)
-      SA = obj
-  },
-  error(error){
-      console.log(error);
-  }
-});
-$.ajax({
-  type: "GET",
-  url: './module/WA.json',
-  dataType: "json",
-  async: false,
-  data: {},
-  success: function (obj) {
-      //var datas = JSON.stringify(data);
-      // var datas = JSON.parse(data);
-      //eval("(" + data + ")");
-      // console.log(obj)
-      WA = obj
-  },
-  error(error){
-      console.log(error);
-  }
-});
-$.ajax({
-  type: "GET",
-  url: './module/TAS.json',
-  dataType: "json",
-  async: false,
-  data: {},
-  success: function (obj) {
-      //var datas = JSON.stringify(data);
-      // var datas = JSON.parse(data);
-      //eval("(" + data + ")");
-      // console.log(obj)
-      TAS = obj
-  },
-  error(error){
-      console.log(error);
-  }
-});
+})
+
+// request from local files
+for (i = 0; i < ajax_param_Arr.length; i++) {
+  request({
+    url: ajax_param_Arr[i].url,
+    callBack: res => {
+      ajax_region_Arr[i] = res
+    }
+  })
+}
 
 //create research cards html
 function addCards(card_data) {
@@ -287,14 +156,10 @@ function addCards(card_data) {
   $('#research_cards').html(div)
 }
 
-// coordinates
-// const VIC_coor = JSON.parse(VIC)
-
 // JS - Google Vector Map popups 
 let map, Popup;
 
 function initMap() {}
-
 $(() => {
   initMap = function(){
     map = new google.maps.Map(document.getElementById("map"), {
@@ -302,300 +167,159 @@ $(() => {
       center: { lat: -25, lng: 133 },
       disableDefaultUI: true,
     });
-    
-    // Define the LatLng coordinates for the polygon's path.
-    let test = []
-  
-  // handle map boundries
-  // for (i = 0; i <TAS.length; i++) {
-  //   let temp = JSON.stringify(TAS[i]).match(/-?([1-9]\d*(\.\d*)*|0\.[1-9]\d*)/g)
-  //   let item ={}
-  //   item.lat = JSON.parse(temp[1])
-  //   item.lng = JSON.parse(temp[0])
-  //   test.push(item)
-  // }
-  // let print = JSON.stringify(test)
-  // console.log(print)
+        
+   // A customized popup on the map.
+    class Popup extends google.maps.OverlayView {
+      constructor(position, content) {
+        super();
+        this.position = position;
+        content.classList.add("popup-bubble");
+        // This zero-height div is positioned at the bottom of the bubble.
+        const bubbleAnchor = document.createElement("div");
+        bubbleAnchor.classList.add("popup-bubble-anchor");
+        bubbleAnchor.appendChild(content);
+        // This zero-height div is positioned at the bottom of the tip.
+        this.containerDiv = document.createElement("div");
+        this.containerDiv.classList.add("popup-container");
+        this.containerDiv.appendChild(bubbleAnchor);
+        // Optionally stop clicks, etc., from bubbling up to the map.
+        Popup.preventMapHitsAndGesturesFrom(this.containerDiv);
+      }
+      /** Called when the popup is added to the map. */
+      onAdd() {
+        this.getPanes().floatPane.appendChild(this.containerDiv);
+      }
+      /** Called when the popup is removed from the map. */
+      onRemove() {
+        if (this.containerDiv.parentElement) {
+          this.containerDiv.parentElement.removeChild(this.containerDiv);
+        }
+      }
+      /** Called each frame when the popup needs to draw itself. */
+      draw() {
+        const divPosition = this.getProjection().fromLatLngToDivPixel(
+          this.position
+        );
+        // Hide the popup when it is far out of view.
+        const display =
+          Math.abs(divPosition.x) < 4000 && Math.abs(divPosition.y) < 4000
+            ? "block"
+            : "none";
 
-  /**
-   * A customized popup on the map.
-   */
-   class Popup extends google.maps.OverlayView {
-    constructor(position, content) {
-      super();
-      this.position = position;
-      content.classList.add("popup-bubble");
-      // This zero-height div is positioned at the bottom of the bubble.
-      const bubbleAnchor = document.createElement("div");
-      bubbleAnchor.classList.add("popup-bubble-anchor");
-      bubbleAnchor.appendChild(content);
-      // This zero-height div is positioned at the bottom of the tip.
-      this.containerDiv = document.createElement("div");
-      this.containerDiv.classList.add("popup-container");
-      this.containerDiv.appendChild(bubbleAnchor);
-      // Optionally stop clicks, etc., from bubbling up to the map.
-      Popup.preventMapHitsAndGesturesFrom(this.containerDiv);
-    }
-    /** Called when the popup is added to the map. */
-    onAdd() {
-      this.getPanes().floatPane.appendChild(this.containerDiv);
-    }
-    /** Called when the popup is removed from the map. */
-    onRemove() {
-      if (this.containerDiv.parentElement) {
-        this.containerDiv.parentElement.removeChild(this.containerDiv);
+        if (display === "block") {
+          this.containerDiv.style.left = divPosition.x + "px";
+          this.containerDiv.style.top = divPosition.y + "px";
+        }
+
+        if (this.containerDiv.style.display !== display) {
+          this.containerDiv.style.display = display;
+        }
       }
     }
-    /** Called each frame when the popup needs to draw itself. */
-    draw() {
-      const divPosition = this.getProjection().fromLatLngToDivPixel(
-        this.position
+
+    // create popup objects
+    const popup_Arr = [
+      {lat: '-37.48', lng:'144.57', id: 'VIC_content'},
+      {lat: '-33.557', lng:'146.469', id: 'NSW_content'},
+      {lat: '-23', lng:'143', id: 'QLD_content'},
+      {lat: '-22.5', lng:'133', id: 'NT_content'},
+      {lat: '-29.557', lng:'133.469', id: 'SA_content'},
+      {lat: '-27', lng:'125', id: 'WA_content'},
+      {lat: '-42.1', lng:'146.38', id: 'TAS_content'},
+    ]
+    function newPopup(obj) {
+      let popup = new Popup(
+        new google.maps.LatLng(obj.lat, obj.lng),
+        document.getElementById(obj.id)
       );
-      // Hide the popup when it is far out of view.
-      const display =
-        Math.abs(divPosition.x) < 4000 && Math.abs(divPosition.y) < 4000
-          ? "block"
-          : "none";
-
-      if (display === "block") {
-        this.containerDiv.style.left = divPosition.x + "px";
-        this.containerDiv.style.top = divPosition.y + "px";
-      }
-
-      if (this.containerDiv.style.display !== display) {
-        this.containerDiv.style.display = display;
-      }
+      return popup
     }
-  }
+    const VIC_popup = newPopup(popup_Arr[0])
+    const NSW_popup = newPopup(popup_Arr[1])
+    const QLD_popup = newPopup(popup_Arr[2])
+    const NT_popup = newPopup(popup_Arr[3])
+    const SA_popup = newPopup(popup_Arr[4])
+    const WA_popup = newPopup(popup_Arr[5])
+    const TAS_popup = newPopup(popup_Arr[6])
 
-  const VIC_popup = new Popup(
-    new google.maps.LatLng(-37.48, 144.57),
-    document.getElementById("VIC_content")
-  );
-  const NSW_popup = new Popup(
-    new google.maps.LatLng(-33.557, 146.469),
-    document.getElementById("NSW_content")
-  );
-  const QLD_popup = new Popup(
-    new google.maps.LatLng(-23, 143),
-    document.getElementById("QLD_content")
-  );
-  const NT_popup = new Popup(
-    new google.maps.LatLng(-22.5, 133),
-    document.getElementById("NT_content")
-  );
-  const SA_popup = new Popup(
-    new google.maps.LatLng(-29.557, 133.469),
-    document.getElementById("SA_content")
-  );  
-  const WA_popup = new Popup(
-    new google.maps.LatLng(-27, 125),
-    document.getElementById("WA_content")
-  );
-  const TAS_popup = new Popup(
-    new google.maps.LatLng(-42.1, 146.38),
-    document.getElementById("TAS_content")
-  );
+    // Construct shapes
+    const shape_Arr = [
+      {coordinates: ajax_region_Arr[0], fillColor:'#FFFFFF'},
+      {coordinates: ajax_region_Arr[0], fillColor:'#FF0000'},
+      {coordinates: ajax_region_Arr[1], fillColor:'#FFFFFF'},
+      {coordinates: ajax_region_Arr[1], fillColor:'#FF0000'},
+      {coordinates: ajax_region_Arr[2], fillColor:'#FFFFFF'},
+      {coordinates: ajax_region_Arr[2], fillColor:'#FF0000'},
+      {coordinates: ajax_region_Arr[3], fillColor:'#FFFFFF'},
+      {coordinates: ajax_region_Arr[3], fillColor:'#FF0000'},
+      {coordinates: ajax_region_Arr[4], fillColor:'#FFFFFF'},
+      {coordinates: ajax_region_Arr[4], fillColor:'#FF0000'},
+      {coordinates: ajax_region_Arr[5], fillColor:'#FFFFFF'},
+      {coordinates: ajax_region_Arr[5], fillColor:'#FF0000'},
+      {coordinates: ajax_region_Arr[6], fillColor:'#FFFFFF'},
+      {coordinates: ajax_region_Arr[6], fillColor:'#FF0000'},
+    ]
+    function initShape (obj) {
+      let shape = new google.maps.Polygon({
+        paths: obj.coordinates,
+        strokeColor: "#FF0000",
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: obj.fillColor,
+        fillOpacity: 0.35,
+      })
+      return shape
+    }
 
-  // Construct shapes
-  // VIC
-  const VIC_shape = new google.maps.Polygon({
-    paths: VIC,
-    strokeColor: "#FF0000",
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: "#FFFFFF",
-    fillOpacity: 0.35,
-  });
-  const NEW_VIC_shape = new google.maps.Polygon({
-    paths: VIC,
-    strokeColor: "#FF0000",
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: "#FF0000",
-    fillOpacity: 0.35,
-  });
-  VIC_shape.setMap(map);
-  VIC_shape.addListener('mouseover', () => {
-    VIC_popup.setMap(map);
-    VIC_shape.setMap(null)
-    NEW_VIC_shape.setMap(map)
-  })
-  NEW_VIC_shape.addListener('mouseout', () => {
-    NEW_VIC_shape.setMap(null)
-    VIC_shape.setMap(map)
-    VIC_popup.setMap(null);
-  })
-  // NSW
-  const NSW_shape = new google.maps.Polygon({
-    paths: NSW,
-    strokeColor: "#FF0000",
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: "#FFFFFF",
-    fillOpacity: 0.35,
-  });
-  const NEW_NSW_shape = new google.maps.Polygon({
-    paths: NSW,
-    strokeColor: "#FF0000",
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: "#FF0000",
-    fillOpacity: 0.35,
-  });
-  NSW_shape.setMap(map);
-  NSW_shape.addListener('mouseover', () => {
-    NSW_shape.setMap(null)
-    NEW_NSW_shape.setMap(map)
-    NSW_popup.setMap(map)
-  })
-  NEW_NSW_shape.addListener('mouseout', () => {
-    NEW_NSW_shape.setMap(null)
-    NSW_shape.setMap(map)
-    NSW_popup.setMap(null)
-  })
-  // QLD
-  const QLD_shape = new google.maps.Polygon({
-    paths: QLD,
-    strokeColor: "#FF0000",
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: "#FFFFFF",
-    fillOpacity: 0.35,
-  });
-  const NEW_QLD_shape = new google.maps.Polygon({
-    paths: QLD,
-    strokeColor: "#FF0000",
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: "#FF0000",
-    fillOpacity: 0.35,
-  });
-  QLD_shape.setMap(map);
-  QLD_shape.addListener('mouseover', () => {
-    QLD_popup.setMap(map)
-    QLD_shape.setMap(null)
-    NEW_QLD_shape.setMap(map)
-  })
-  NEW_QLD_shape.addListener('mouseout', () => {
-    NEW_QLD_shape.setMap(null)
-    QLD_shape.setMap(map)
-    QLD_popup.setMap(null)
-  })
-  // NT
-  const NT_shape = new google.maps.Polygon({
-    paths: NT,
-    strokeColor: "#FF0000",
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: "#FFFFFF",
-    fillOpacity: 0.35,
-  });
-  const NEW_NT_shape = new google.maps.Polygon({
-    paths: NT,
-    strokeColor: "#FF0000",
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: "#FF0000",
-    fillOpacity: 0.35,
-  });
-  NT_shape.setMap(map);
-  NT_shape.addListener('mouseover', () => {
-    NT_popup.setMap(map)
-    NT_shape.setMap(null)
-    NEW_NT_shape.setMap(map)
-  })
-  NEW_NT_shape.addListener('mouseout', () => {
-    NEW_NT_shape.setMap(null)
-    NT_shape.setMap(map)
-    NT_popup.setMap(null)
-  })
-  // SA
-  const SA_shape = new google.maps.Polygon({
-    paths: SA,
-    strokeColor: "#FF0000",
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: "#FFFFFF",
-    fillOpacity: 0.35,
-  });
-  const NEW_SA_shape = new google.maps.Polygon({
-    paths: SA,
-    strokeColor: "#FF0000",
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: "#FF0000",
-    fillOpacity: 0.35,
-  });
-  SA_shape.setMap(map);
-  SA_shape.addListener('mouseover', () => {
-    SA_popup.setMap(map)
-    SA_shape.setMap(null)
-    NEW_SA_shape.setMap(map)
-  })
-  NEW_SA_shape.addListener('mouseout', () => {
-    NEW_SA_shape.setMap(null)
-    SA_shape.setMap(map)
-    SA_popup.setMap(null)
-  })
-  // WA
-  const WA_shape = new google.maps.Polygon({
-    paths: WA,
-    strokeColor: "#FF0000",
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: "#FFFFFF",
-    fillOpacity: 0.35,
-  });
-  const NEW_WA_shape = new google.maps.Polygon({
-    paths: WA,
-    strokeColor: "#FF0000",
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: "#FF0000",
-    fillOpacity: 0.35,
-  });
-  WA_shape.setMap(map);
-  WA_shape.addListener('mouseover', () => {
-    WA_popup.setMap(map)
-    WA_shape.setMap(null)
-    NEW_WA_shape.setMap(map)
-  })
-  NEW_WA_shape.addListener('mouseout', () => {
-    NEW_WA_shape.setMap(null)
-    WA_shape.setMap(map)
-    WA_popup.setMap(null)
-  })
-  // TAS
-  const TAS_shape = new google.maps.Polygon({
-    paths: TAS,
-    strokeColor: "#FF0000",
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: "#FFFFFF",
-    fillOpacity: 0.35,
-  });
-  const NEW_TAS_shape = new google.maps.Polygon({
-    paths: TAS,
-    strokeColor: "#FF0000",
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: "#FF0000",
-    fillOpacity: 0.35,
-  });
-  TAS_shape.setMap(map);
-  TAS_shape.addListener('mouseover', () => {
-    TAS_popup.setMap(map)
-    TAS_shape.setMap(null)
-    NEW_TAS_shape.setMap(map)
-  })
-  NEW_TAS_shape.addListener('mouseout', () => {
-    NEW_TAS_shape.setMap(null)
-    TAS_shape.setMap(map)
-    TAS_popup.setMap(null)
-  })
+    // VIC
+    const VIC_shape = initShape(shape_Arr[0])
+    const NEW_VIC_shape = initShape(shape_Arr[1])
+    // NSW
+    const NSW_shape = initShape(shape_Arr[2])
+    const NEW_NSW_shape = initShape(shape_Arr[3])
+    // QLD
+    const QLD_shape = initShape(shape_Arr[4])
+    const NEW_QLD_shape = initShape(shape_Arr[5])
+    // NT
+    const NT_shape = initShape(shape_Arr[6])
+    const NEW_NT_shape = initShape(shape_Arr[7])
+    // SA
+    const SA_shape = initShape(shape_Arr[8])
+    const NEW_SA_shape = initShape(shape_Arr[9])
+    // TAS
+    const TAS_shape = initShape(shape_Arr[12])
+    const NEW_TAS_shape = initShape(shape_Arr[13])
 
+    const obj_Arr = [
+      {shape: VIC_shape, newShape: NEW_VIC_shape, popup: VIC_popup},
+      {shape: NSW_shape, newShape: NEW_NSW_shape, popup: NSW_popup},
+      {shape: QLD_shape, newShape: NEW_QLD_shape, popup: QLD_popup},
+      {shape: NT_shape, newShape: NEW_NT_shape, popup: NT_popup},
+      {shape: SA_shape, newShape: NEW_SA_shape, popup: SA_popup},
+      {shape: WA_shape, newShape: NEW_WA_shape, popup: WA_popup},
+      {shape: TAS_shape, newShape: NEW_TAS_shape, popup: TAS_popup},
+    ]
 
-
+    // add listeners
+    function add_mouseover_listener(obj) {
+      obj.shape.addListener('mouseover', () => {
+        obj.popup.setMap(map)
+        obj.shape.setMap(null)
+        obj.newShape.setMap(map)
+      })
+      console.log(1)
+    }
+    function add_mouseout_listener(obj) {
+      obj.newShape.addListener('mouseout', () => {
+        obj.popup.setMap(null)
+        obj.shape.setMap(map)
+        obj.newShape.setMap(null)
+      })
+    }
+    for (i = 0; i < obj_Arr.length; i++) {
+      obj_Arr[i].shape.setMap(map)
+      add_mouseover_listener(obj_Arr[i])
+      add_mouseout_listener(obj_Arr[i])
+    }
   }
 })
