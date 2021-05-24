@@ -1,7 +1,7 @@
 /* Some standard styles */
 html{
   margin: auto;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 /* body {
   font-family: Arial, Helvetica, sans-serif;
@@ -247,10 +247,10 @@ button.btn_selected{
   background-color: #c5cedb;
 }
 .card_header{
-  height: 30%;
+  height: 25%;
   width: 100%;
   padding-left: 10px;
-  margin: auto;
+  margin: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -265,10 +265,10 @@ button.btn_selected{
   text-transform: uppercase;
 }
 .card_content{
-  height: 50%;
+  height: 55%;
   width: 100%;
   min-width: 100%;
-  padding: 10px;
+  padding: 0 10px 2px 10px;
   white-space: normal;
   word-wrap: break-word;
   overflow: hidden;

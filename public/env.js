@@ -40,7 +40,7 @@ $(function() {
       nav_bar.fadeOut(300)
     }
   })
-  
+
   //create tables
   $('#warning_table').bootstrapTable({
     data: warning_data,
@@ -80,7 +80,7 @@ function operateFormatter(value, row, index) {
 //ajax
 let ajax_region_Arr = [VIC, NSW, QLD, NT, SA, WA, TAS]
 let ajax_param_Arr = [
-  {url: './module/VIC.json', data: VIC },
+  { url: './module/VIC.json', data: VIC },
   { url: './module/NSW.json', data: NSW }, 
   { url: './module/QLD.json', data: QLD }, 
   { url: './module/NT.json', data: NT },
@@ -115,7 +115,7 @@ request({
 })
 
 // request from local files
-for (i = 0; i < ajax_param_Arr.length; i++) {
+for (let i = 0; i < ajax_param_Arr.length; i++) {
   request({
     url: ajax_param_Arr[i].url,
     callBack: res => {
@@ -218,78 +218,41 @@ $(() => {
     }
 
     // create popup objects
-    const popup_Arr = [
-      {lat: '-37.48', lng:'144.57', id: 'VIC_content'},
-      {lat: '-33.557', lng:'146.469', id: 'NSW_content'},
-      {lat: '-23', lng:'143', id: 'QLD_content'},
-      {lat: '-22.5', lng:'133', id: 'NT_content'},
-      {lat: '-29.557', lng:'133.469', id: 'SA_content'},
-      {lat: '-27', lng:'125', id: 'WA_content'},
-      {lat: '-42.1', lng:'146.38', id: 'TAS_content'},
-    ]
-    function newPopup(obj) {
+    function newPopup(lat, lng, id) {
       let popup = new Popup(
-        new google.maps.LatLng(obj.lat, obj.lng),
-        document.getElementById(obj.id)
+        new google.maps.LatLng(lat, lng),
+        document.getElementById(id)
       );
       return popup
     }
-    const VIC_popup = newPopup(popup_Arr[0])
-    const NSW_popup = newPopup(popup_Arr[1])
-    const QLD_popup = newPopup(popup_Arr[2])
-    const NT_popup = newPopup(popup_Arr[3])
-    const SA_popup = newPopup(popup_Arr[4])
-    const WA_popup = newPopup(popup_Arr[5])
-    const TAS_popup = newPopup(popup_Arr[6])
+    const [VIC_popup, NSW_popup,QLD_popup ,NT_popup ,SA_popup,WA_popup,TAS_popup] = [
+      newPopup(-37.48, 144.57, 'VIC_content'), newPopup(-33.557, 146.469, 'NSW_content'),
+      newPopup(-23, 143, 'QLD_content'), newPopup(-22.5, 133, 'NT_content'),
+      newPopup(-29.557, 133.469, 'SA_content'), newPopup(-27, 125, 'WA_content'),
+      newPopup(-42.1, 146.38, 'TAS_content')
+    ]
 
     // Construct shapes
-    const shape_Arr = [
-      {coordinates: ajax_region_Arr[0], fillColor:'#FFFFFF'},
-      {coordinates: ajax_region_Arr[0], fillColor:'#FF0000'},
-      {coordinates: ajax_region_Arr[1], fillColor:'#FFFFFF'},
-      {coordinates: ajax_region_Arr[1], fillColor:'#FF0000'},
-      {coordinates: ajax_region_Arr[2], fillColor:'#FFFFFF'},
-      {coordinates: ajax_region_Arr[2], fillColor:'#FF0000'},
-      {coordinates: ajax_region_Arr[3], fillColor:'#FFFFFF'},
-      {coordinates: ajax_region_Arr[3], fillColor:'#FF0000'},
-      {coordinates: ajax_region_Arr[4], fillColor:'#FFFFFF'},
-      {coordinates: ajax_region_Arr[4], fillColor:'#FF0000'},
-      {coordinates: ajax_region_Arr[5], fillColor:'#FFFFFF'},
-      {coordinates: ajax_region_Arr[5], fillColor:'#FF0000'},
-      {coordinates: ajax_region_Arr[6], fillColor:'#FFFFFF'},
-      {coordinates: ajax_region_Arr[6], fillColor:'#FF0000'},
-    ]
-    function initShape (obj) {
+    function initShape (coordinates, fillColor) {
       let shape = new google.maps.Polygon({
-        paths: obj.coordinates,
+        paths: coordinates,
         strokeColor: "#FF0000",
         strokeOpacity: 0.8,
         strokeWeight: 2,
-        fillColor: obj.fillColor,
+        fillColor: fillColor,
         fillOpacity: 0.35,
       })
       return shape
     }
-
-    // VIC
-    const VIC_shape = initShape(shape_Arr[0])
-    const NEW_VIC_shape = initShape(shape_Arr[1])
-    // NSW
-    const NSW_shape = initShape(shape_Arr[2])
-    const NEW_NSW_shape = initShape(shape_Arr[3])
-    // QLD
-    const QLD_shape = initShape(shape_Arr[4])
-    const NEW_QLD_shape = initShape(shape_Arr[5])
-    // NT
-    const NT_shape = initShape(shape_Arr[6])
-    const NEW_NT_shape = initShape(shape_Arr[7])
-    // SA
-    const SA_shape = initShape(shape_Arr[8])
-    const NEW_SA_shape = initShape(shape_Arr[9])
-    // TAS
-    const TAS_shape = initShape(shape_Arr[12])
-    const NEW_TAS_shape = initShape(shape_Arr[13])
-
+    const [VIC_shape, NEW_VIC_shape, NSW_shape, NEW_NSW_shape, QLD_shape, NEW_QLD_shape, NT_shape, NEW_NT_shape, SA_shape, NEW_SA_shape, WA_shape, NEW_WA_shape, TAS_shape, NEW_TAS_shape] = [
+      initShape(ajax_region_Arr[0], '#FFFFFF'), initShape(ajax_region_Arr[0], '#FF0000'),
+      initShape(ajax_region_Arr[1], '#FFFFFF'), initShape(ajax_region_Arr[1], '#FF0000'),
+      initShape(ajax_region_Arr[2], '#FFFFFF'), initShape(ajax_region_Arr[2], '#FF0000'),
+      initShape(ajax_region_Arr[3], '#FFFFFF'), initShape(ajax_region_Arr[3], '#FF0000'),
+      initShape(ajax_region_Arr[4], '#FFFFFF'), initShape(ajax_region_Arr[4], '#FF0000'),
+      initShape(ajax_region_Arr[5], '#FFFFFF'), initShape(ajax_region_Arr[5], '#FF0000'),
+      initShape(ajax_region_Arr[6], '#FFFFFF'), initShape(ajax_region_Arr[6], '#FF0000')
+    ]
     const obj_Arr = [
       {shape: VIC_shape, newShape: NEW_VIC_shape, popup: VIC_popup},
       {shape: NSW_shape, newShape: NEW_NSW_shape, popup: NSW_popup},
@@ -307,7 +270,6 @@ $(() => {
         obj.shape.setMap(null)
         obj.newShape.setMap(map)
       })
-      console.log(1)
     }
     function add_mouseout_listener(obj) {
       obj.newShape.addListener('mouseout', () => {
@@ -316,7 +278,7 @@ $(() => {
         obj.newShape.setMap(null)
       })
     }
-    for (i = 0; i < obj_Arr.length; i++) {
+    for (let i = 0; i < obj_Arr.length; i++) {
       obj_Arr[i].shape.setMap(map)
       add_mouseover_listener(obj_Arr[i])
       add_mouseout_listener(obj_Arr[i])
