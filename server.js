@@ -272,10 +272,15 @@ app.get("/api/getcard", (req,res) => {
 })
 
 // socket test
-io.on('connection', (socket) => {
+var count=0;
+io.on('connection', function(socket) {
   console.log('a user connected');
-  socket.on('disconnect', () => {
+  count++;
+  io.emit('usercnt',count);
+  socket.on('disconnect', function() {
     console.log('user disconnected');
+    count--;
+    io.emit('usercnt'.count);
   });
   setInterval(()=>{
     socket.emit('number', parseInt(Math.random()*10));
