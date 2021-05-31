@@ -3,13 +3,19 @@ const bodyParser = require("body-parser");
 // const mongoose = require ('mongoose')
 let express = require("express");
 let app = express()
-const axios = require('axios')
+const axios = require('axios');
+const session = require('express-session');
+const passport = require('passport');
+const localStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcrypt');
+
 
 const Humidity = require('./model/humidity')
 const Temperature = require('./model/temperature')
 const Season = require('./model/season')
 const User = require('./model/testDb')
 const Research = require('./model/research')
+const Admin = require('./model/admin')
 
 let http = require('http').createServer(app);
 let io = require('socket.io')(http);
@@ -288,6 +294,91 @@ io.on('connection', function(socket) {
 
 });
 
+
+//insert admin account
+app.post('/api/createAdmin', async (req,res)=>{
+  console.log(req.body)
+  
+  const { username, password} = req.body
+  try {
+       const response = await Admin.create({
+         username,
+         password
+       })
+       console.log('Admin created successfully: ', response)
+  } catch (error) {
+    console.log(error)
+    return res.json({ status: 'error'})
+  }
+  res.json({status:'ok'})
+
+})
+
+//admin session
+app.use(session({
+  secret:"verygoodsecret",
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(express.urlencoded({ extended: false}));
+app.use(express.json());
+
+//passport.js
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.serializeUser(function (user,done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function (id, done){
+  Admin.findById(id, function (err,user) {
+    done(err, user);
+  });
+});
+
+passport.use(new localStrategy(function (username, password, done) {
+  Admin.findOne({ username: username }, function (err, user) {
+    if (err) return done(err); 
+    if(!user) return done(null, false, { message: 'Incorrect username'});
+
+    bcrypt.compare(password, user.password, function (err,res){
+      if (err) return done(err);
+      if(res === false) return done(null, false, { message:'Incorrect password'});
+
+        return done(null, user);
+    });
+  });
+}));
+
+function isLoggedIn(req, res, next) {
+  if(req.isAuthenticated()) return next();
+  res.redirect('/');
+}
+
+function isLoggedOut(req, res, next) {
+  if(!req.isAuthenticated()) return next();
+  res.redirect('/');
+}
+
+//Routes
+app.get('/admin', isLoggedIn, (req,res) => {
+  res.render("admin.html");
+})
+
+app.get('/', isLoggedOut, (req,res) => {
+  res.render("index.html");
+})
+
+app.post('/login', passport.authenticate('local', {
+  successRedirect:'/admin',
+  failureRedirect:'/'
+}));
+
+app.get('logout', function (req, res){
+  req.logout();
+  res.redirect('/');
+});
 
 http.listen(port,()=>{
   console.log("Listening on port ", port);
