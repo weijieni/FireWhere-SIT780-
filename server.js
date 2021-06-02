@@ -337,47 +337,58 @@ passport.deserializeUser(function (id, done){
   });
 });
 
+// passport
+passport.authenticateMiddleware = function authenticationMiddleware() {
+  return function (req, res, next) {
+    if (req.isAuthenticated()) {
+      return next();
+    }
+    res.json({
+      status:'fail'
+    })
+  }
+};
+
 passport.use(new localStrategy(function (username, password, done) {
+  console.log("username",password);
   Admin.findOne({ username: username }, function (err, user) {
+    console.log("admin logged in",user.password===password);
     if (err) return done(err); 
     if(!user) return done(null, false, { message: 'Incorrect username'});
 
-    bcrypt.compare(password, user.password, function (err,res){
-      if (err) return done(err);
-      if(res === false) return done(null, false, { message:'Incorrect password'});
+    if (user.password != password) {
+      console.log('Incorrect password');
 
-        return done(null, user);
-    });
+      return done(null, false, {message: 'Incorrect password'});
+    }
+
+    return done(null, user);
   });
 }));
 
-function isLoggedIn(req, res, next) {
-  if(req.isAuthenticated()) return next();
-  res.redirect('/');
-}
-
-function isLoggedOut(req, res, next) {
-  if(!req.isAuthenticated()) return next();
-  res.redirect('/');
-}
-
 //Routes
-app.get('/admin', isLoggedIn, (req,res) => {
-  res.render("admin.html");
+app.post('/api/admin', passport.authenticateMiddleware() , (req,res) => {
+  res.json({status:'ok',message:"admin logged in"})
 })
 
-app.get('/', isLoggedOut, (req,res) => {
-  res.render("index.html");
+app.post('/api/logout',(req,res)=>{
+  req.session.passport.user=''
+  console.log('req.session',req.session);
+  res.json({status:'ok'})
 })
 
-app.post('/login', passport.authenticate('local', {
-  successRedirect:'/admin',
-  failureRedirect:'/'
-}));
+
+
+app.post('/api/login',passport.authenticate('local'),(req,res)=>{
+  res.json({status:'ok',message:"admin login successful"})
+})
+
+
+
 
 app.get('logout', function (req, res){
   req.logout();
-  res.redirect('/');
+  res.redirect('/')
 });
 
 http.listen(port,()=>{

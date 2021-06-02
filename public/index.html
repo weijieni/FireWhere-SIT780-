@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>FireWhere</title>
+    <title>Index</title>
 
     <!-- Compiled and minified CSS -->
 
@@ -45,10 +45,10 @@
                             class="nav_item navbutton"><img class="btn_icon" src="assets/season.png" />Season</button>
                     </div>
                 </li>
-                <li><button id="navbutton_5" class="navbutton" onclick="handleTab('#warning', '#navbutton_5')"><img
-                            class="btn_icon" src="assets/warning.png" />Warnings</button></li>
-                <li><button id="navbutton_6" class="navbutton" onclick="handleTab('#data', '#navbutton_6')"><img
-                            class="btn_icon" src="assets/data.png" />Data</button></li>
+                <!-- <li><button id="navbutton_5" class="navbutton" onclick="handleTab('#warning', '#navbutton_5')"><img
+                            class="btn_icon" src="assets/warning.png" />Warnings</button></li> -->
+                <!-- <li><button id="navbutton_6" class="navbutton" onclick="handleTab('#data', '#navbutton_6')"><img
+                            class="btn_icon" src="assets/data.png" />Data</button></li> -->
                 <li><button id="navbutton_7" class="navbutton" onclick="handleTab('#research', '#navbutton_7')"><img
                             class="btn_icon" src="assets/research.png" />Research</button></li>
                 <li><button id="navbutton_8" class="navbutton" onclick="handleTab('#user', '#navbutton_8')"><img
@@ -414,6 +414,32 @@
                 })
             }).then((res) => res.json())
             console.log(result)
+        }
+    </script>
+    <!-- admin login -->
+    <script>
+        const adminForm = document.getElementById('admin-form')
+        adminForm.addEventListener('submit', loginUser)
+
+        async function loginUser(event) {
+            event.preventDefault()
+            const username = document.getElementById('username').value
+            const password = document.getElementById('password').value
+
+            const result = await fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username,
+                    password
+                })
+            }).then((res) => res.json())
+            const { status, message } = result;
+            if (status === "ok") {
+                window.location.href = '/admin.html'
+            }
         }
     </script>
 
