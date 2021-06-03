@@ -1,5 +1,5 @@
 // connect to the socket
-let socket = io();
+// let socket = io();
 
 // datasets for test
 let warning_data = [

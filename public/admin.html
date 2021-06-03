@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Index</title>
+    <title>Admin</title>
 
     <!-- Compiled and minified CSS -->
 
@@ -45,16 +45,16 @@
                             class="nav_item navbutton"><img class="btn_icon" src="assets/season.png" />Season</button>
                     </div>
                 </li>
-                <!-- <li><button id="navbutton_5" class="navbutton" onclick="handleTab('#warning', '#navbutton_5')"><img
-                            class="btn_icon" src="assets/warning.png" />Warnings</button></li> -->
-                <!-- <li><button id="navbutton_6" class="navbutton" onclick="handleTab('#data', '#navbutton_6')"><img
-                            class="btn_icon" src="assets/data.png" />Data</button></li> -->
+                <li><button id="navbutton_5" class="navbutton" onclick="handleTab('#warning', '#navbutton_5')"><img
+                            class="btn_icon" src="assets/warning.png" />Warnings</button></li>
+                <li><button id="navbutton_6" class="navbutton" onclick="handleTab('#data', '#navbutton_6')"><img
+                            class="btn_icon" src="assets/data.png" />Data</button></li>
                 <li><button id="navbutton_7" class="navbutton" onclick="handleTab('#research', '#navbutton_7')"><img
                             class="btn_icon" src="assets/research.png" />Research</button></li>
-                <li><button id="navbutton_8" class="navbutton" onclick="handleTab('#user', '#navbutton_8')"><img
-                            class="btn_icon" src="assets/signup.png" />Sign up your detail!</button></li>
+                <!-- <li><button id="navbutton_8" class="navbutton" onclick="handleTab('#user', '#navbutton_8')"><img
+                            class="btn_icon" src="assets/signup.png" />Sign up your detail!</button></li> -->
                 <li><button id="navbutton_9" class="navbutton" onclick="handleTab('#admin', '#navbutton_9')"><img
-                            class="btn_icon" src="assets/signup.png" />Admin Login</button></li>
+                            class="btn_icon" src="assets/signup.png" />Admin Logout</button></li>
             </ul>
         </div>
 
@@ -370,21 +370,13 @@
                 </div>
             </div>
 
-            <!-- admin Login tab -->
+            <!-- admin Logout tab -->
             <div class="pages flex" id="admin">
                 <div class="container" style="margin-top: 50px">
-                    <form id="admin-form">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="username" placeholder="Username">
-                            <label for="floatingInput">Username</label>
-                        </div>
-                        <div class="form-floating">
-                            <input type="password" class="form-control" id="password" placeholder="Password">
-                            <label for="floatingRegion">Password</label>
-                        </div>
+                    <form id="logout-form">
                         <br>
                         <div class="card text-center">
-                            <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                            <button type="submit" class="btn btn-primary btn-lg">Logout</button>
                         </div>
                     </form>
                     </form>
@@ -414,32 +406,6 @@
                 })
             }).then((res) => res.json())
             console.log(result)
-        }
-    </script>
-    <!-- admin login -->
-    <script>
-        const adminForm = document.getElementById('admin-form')
-        adminForm.addEventListener('submit', loginUser)
-
-        async function loginUser(event) {
-            event.preventDefault()
-            const username = document.getElementById('username').value
-            const password = document.getElementById('password').value
-
-            const result = await fetch('/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    username,
-                    password
-                })
-            }).then((res) => res.json())
-            const { status, message } = result;
-            if (status === "ok") {
-                window.location.href = '/admin.html'
-            }
         }
     </script>
 
@@ -473,6 +439,41 @@
         socket.on('usercnt', function (msg) {
             document.getElementById("count").innerHTML = msg;
         })
+    </script>
+    <script>
+        window.onload = async function () {
+            const result = await fetch('/api/admin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then((res) => res.json())
+            const { status } = result;
+            if (status === 'fail') {
+                window.location.href = '/index.html'
+            }
+        }
+    </script>
+    <!-- Admin logout -->
+    <script>
+        const logoutForm = document.getElementById('logout-form')
+        logoutForm.addEventListener('submit', logoutAdmin)
+
+        async function logoutAdmin(event) {
+            event.preventDefault()
+
+            const result = await fetch('/api/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then((res) => res.json())
+            console.log(result)
+            const { status } = result;
+            if (status === 'ok') {
+                window.location.href = '/index.html'
+            }
+        }
     </script>
 
 
