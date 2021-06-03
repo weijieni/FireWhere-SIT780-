@@ -370,10 +370,10 @@
                 </div>
             </div>
 
-            <!-- admin Login tab -->
+            <!-- admin Logout tab -->
             <div class="pages flex" id="admin">
                 <div class="container" style="margin-top: 50px">
-                    <form id="admin-form">
+                    <form id="logout-form">
                         <br>
                         <div class="card text-center">
                             <button type="submit" class="btn btn-primary btn-lg">Logout</button>
@@ -434,26 +434,45 @@
     </script>
     <!-- socket IO Served by the server -->
     <script src="/socket.io/socket.io.js"></script>
-    <script>   
+    <script>
         var socket = io();
         socket.on('usercnt', function (msg) {
             document.getElementById("count").innerHTML = msg;
         })
-
-
     </script>
     <script>
-        window.onload=async function(){
+        window.onload = async function () {
             const result = await fetch('/api/admin', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
             }).then((res) => res.json())
-            const {status}=result;
-        if(status==='fail'){
-            window.location.href='/index.html'
+            const { status } = result;
+            if (status === 'fail') {
+                window.location.href = '/index.html'
+            }
         }
+    </script>
+    <!-- Admin logout -->
+    <script>
+        const logoutForm = document.getElementById('logout-form')
+        logoutForm.addEventListener('submit', logoutAdmin)
+
+        async function logoutAdmin(event) {
+            event.preventDefault()
+
+            const result = await fetch('/api/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            }).then((res) => res.json())
+            console.log(result)
+            const { status } = result;
+            if (status === 'ok') {
+                window.location.href = '/index.html'
+            }
         }
     </script>
 
@@ -482,4 +501,5 @@
     <script src="env.js"></script>
     <!-- <script type="module" src="SMS.js"></script> -->
 </body>
+
 </html>

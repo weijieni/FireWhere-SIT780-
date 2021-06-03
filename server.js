@@ -384,8 +384,6 @@ app.post('/api/login',passport.authenticate('local'),(req,res)=>{
 })
 
 
-
-
 app.get('logout', function (req, res){
   req.logout();
   res.redirect('/')
