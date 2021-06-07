@@ -24,5 +24,5 @@ function appendMessage(message) {
     // var messageElement = document.createElement('div')
     // messageElement.innerText = message
     // messageContainer.append(messageElement)
-    $(".message-container").html("<div>"+message+"</div>")
+    $(".message-container").append("<div>"+message+"</div>")
 }
