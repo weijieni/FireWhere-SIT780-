@@ -375,13 +375,13 @@
 
             <!-- chat tab -->
             <div class="pages flex" id="chat">
-                <div class="message-container" style="margin-top: 50px">
+                <div class="message-container" style="margin-top: 50px" style="margin-right: 50px">
                     <h1>FireWhere Online Chat</h1>
-                   <form id="send-container">
-                    <input type="text" id="message-input" />
+                </div>
+                <form id="send-container" class="input-group mb-3">
+                    <input type="text" id="message-input"  placeholder="type your message here" class="form-control" aria-describedby="button-addon2"/>
                     <button type="submit" id="send_button" class="btn btn-primary btn-sm">Send message</button>
                 </form>
-                </div>
             </div>
             <script src="chat.js"></script>
 

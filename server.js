@@ -391,7 +391,7 @@ app.get('logout', function (req, res){
 
 //chat
 io.on('connection', socket => {
-  socket.emit('chat-message', 'Hello World')
+  socket.emit('chat-message', 'Welcome to Firewhere')
   socket.on('send-chat-message', message =>{
     socket.broadcast.emit('chat-message', message)
   })

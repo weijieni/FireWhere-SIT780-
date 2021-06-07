@@ -1,7 +1,11 @@
 const socket = io('http://localhost:8080')
-const messageContainer = document.getElementById('message-container')
-const messageForm = document.getElementById('send-container')
-const messageInput = document.getElementById('message-input')
+var messageContainer = document.getElementById('message-container')
+var messageForm = document.getElementById('send-container')
+var messageInput = document.getElementById('message-input')
+
+const name = document.getElementById('chat-name')
+appendMessage('You joined')
+socket.emit('new-user', name)
 
 socket.on('chat-message', data => {
     appendMessage(data)
@@ -9,14 +13,16 @@ socket.on('chat-message', data => {
 
 messageForm.addEventListener('submit', e=> {
     e.preventDefault()
-    const message = messageInput.value
+    var message = messageInput.value
+    $(".message-container").append("<div>"+message+"</div>")
+    console.log(message)
     socket.emit('send-chat-message', message)
     messageInput.value=''
-
 })
 
 function appendMessage(message) {
-    const messageElement = document.createElement('div')
-    messageElement.innerText = message
-    messageContainer.append(messageElement)
+    // var messageElement = document.createElement('div')
+    // messageElement.innerText = message
+    // messageContainer.append(messageElement)
+    $(".message-container").html("<div>"+message+"</div>")
 }
