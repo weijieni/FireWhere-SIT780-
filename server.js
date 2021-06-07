@@ -389,6 +389,14 @@ app.get('logout', function (req, res){
   res.redirect('/')
 });
 
+//chat
+io.on('connection', socket => {
+  socket.emit('chat-message', 'Hello World')
+  socket.on('send-chat-message', message =>{
+    socket.broadcast.emit('chat-message', message)
+  })
+})
+
 http.listen(port,()=>{
   console.log("Listening on port ", port);
 });
