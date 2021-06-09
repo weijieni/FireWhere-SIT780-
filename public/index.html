@@ -15,8 +15,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.js"></script>
+<<<<<<< HEAD
     <!-- Google Map -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+=======
+    <script src="/socket.io/socket.io.js"></script>
+>>>>>>> 6eac48c708d19f218d0c3150022858bc873686d5
 </head>
 
 <!-- <link href="style.sass" rel="stylesheet"> -->
@@ -55,7 +59,9 @@
                             class="btn_icon" src="assets/research.png" />Research</button></li>
                 <li><button id="navbutton_8" class="navbutton" onclick="handleTab('#user', '#navbutton_8')"><img
                             class="btn_icon" src="assets/signup.png" />Sign up your detail!</button></li>
-                <li><button id="navbutton_9" class="navbutton" onclick="handleTab('#admin', '#navbutton_9')"><img
+                <li><button id="navbutton_9" class="navbutton" onclick="handleTab('#chat', '#navbutton_9')"><img
+                            class="btn_icon" src="assets/signup.png" />Chat room</button></li>
+                <li><button id="navbutton_10" class="navbutton" onclick="handleTab('#admin', '#navbutton_10')"><img
                             class="btn_icon" src="assets/signup.png" />Admin Login</button></li>
             </ul>
         </div>
@@ -381,6 +387,19 @@
                 </div>
             </div>
 
+            <!-- chat tab -->
+            <div class="pages flex" id="chat">
+                <div class="message-container" style="margin-top: 50px" style="margin-right: 50px">
+                    <h1>FireWhere Online Chat</h1>
+                </div>
+                <form id="send-container" class="input-group mb-3">
+                    <input type="text" id="message-input"  placeholder="type your message here" class="form-control" aria-describedby="button-addon2"/>
+                    <button type="submit" id="send_button" class="btn btn-primary btn-sm">Send message</button>
+                </form>
+            </div>
+            <script src="chat.js"></script>
+
+
             <!-- admin Login tab -->
             <div class="pages flex" id="admin">
                 <div class="container" style="margin-top: 50px">
@@ -478,9 +497,9 @@
         // });
     </script>
     <!-- socket IO Served by the server -->
-    <script src="/socket.io/socket.io.js"></script>
+
     <script>
-        var socket = io();
+        // var socket = io();
         socket.on('usercnt', function (msg) {
             document.getElementById("count").innerHTML = msg;
         })
