@@ -25,11 +25,6 @@ const SMSclient = require('twilio')(accountSid, authToken);
 let http = require('http').createServer(app);
 let io = require('socket.io')(http);
 
-// import jQuery from 'jquery'
-// import a from './public/SMS'
-// console.log(jQuery)
-// console.log(a)
-
 
 // connect Mongodb Atlas
 const uri = "mongodb+srv://admin_wni:020419Ni@fwcluster.gzfkv.mongodb.net/FWCluster?retryWrites=true&w=majority";
@@ -409,6 +404,17 @@ http.listen(port,()=>{
 //this is only needed for Cloud foundry 
 // require("cf-deployment-tracker-client").track();
 
-export default function smsparams(){
-  console.log(111)
-}
+app.post('/api/sms', function (req, res){
+  SMSclient.messages
+  .create({
+    body: req.body.message,
+    from: '+17573201561',
+    to: req.body.to
+  })
+  .then(message => {
+    console.log(message.sid)
+    res.json({status:'ok'})
+  }).catch(err => console.log(err))
+});
+
+

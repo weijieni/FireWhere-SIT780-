@@ -5,7 +5,7 @@
 // const authToken = "7caa2517026f9d387c2253fafab7edd3";
 // const SMSclient = require('twilio')(accountSid, authToken);
 
-export default function sendSMS() {
+// export default function sendSMS() {
   // app.post('/api/sms',(req,res)=>{
   //   SMSclient.messages
   //     .create({
@@ -18,6 +18,10 @@ export default function sendSMS() {
   //       res.json({status:'ok'})
   //     }).catch(err => console.log(err))
   // })
-  console.log("111")
-}
+//   console.log("111")
+// }
+
+// $(function(){
+
+// })
 

@@ -1,6 +1,3 @@
-// connect to the socket
-// let socket = io();
-
 // datasets for test
 let warning_data = [
   {
@@ -12,6 +9,8 @@ let warning_data = [
 ]
 let temperature_data, humidity_data, season_data, data_data, card_data
 let VIC, NSW, QLD, NT, SA, WA, TAS = []
+let currentLocation
+
 
 socket.on('number', (msg) => {
 })
@@ -20,7 +19,6 @@ console.log('test')
 
 // jQuery
 $(function() {
-  var ifUrgent = $('.ifUrgent')
   //handle nav-list click task
   $('#nav_dev').click(function() {
     var dev_item = $('#dev_item')
@@ -92,18 +90,18 @@ let ajax_param_Arr = [
 // data request ajax
 function request(params) {
   $.ajax({
-        type: "GET",
-        url:params.url,
-        dataType: "json",
-        async: false,
-        data: {},
-        success: (data) => {
-          params.callBack(data)
-        },
-        error(error){
-          console.log(error);
-        }
-    });
+    type: "GET",
+    url:params.url,
+    dataType: "json",
+    async: false,
+    data: {},
+    success: (data) => {
+      params.callBack(data)
+    },
+    error(error){
+      console.log(error);
+    }
+  });
 }
 
 // request from cloud
@@ -154,6 +152,55 @@ function addCards(card_data) {
     `
   }
   $('#research_cards').html(div)
+}
+
+// algorithms for deciding if a coordinate locates in a certain region
+function ifCoordinPoly(cLat, cLng, regionArr) {
+  var sum = 0
+  var count = regionArr.length
+  
+  if (count < 3) return false
+  for (var i = 0; i < count; i++){
+    pLat1 = regionArr[i].lat
+    pLng1 = regionArr[i].lng
+
+    if (i == count - 1){
+      pLat2 = regionArr[0].lat
+      pLng2 = regionArr[0].lng
+    } else {
+      pLat2 = regionArr[i + 1].lat
+      pLng2 = regionArr[i + 1].lng
+    }
+
+    if (((cLat >= pLat1) && (cLat < pLat2)) || ((cLat < pLat1) && (cLat >= pLat2))){
+      if (Math.abs(pLat1 - pLat2) > 0){
+        pLng = pLng1 - ((pLng1 - pLng2) * (pLat1 - cLat)) / (pLat1 - pLat2)
+        if (pLng < cLng){
+          sum += 1
+        }
+      }
+    }
+  }
+  if (sum % 2 != 0) return true 
+  else return false
+}
+
+function ployToLocate (cLat, cLng) {
+  if (ifCoordinPoly(cLat, cLng, ajax_region_Arr[0]))
+  return "VIC"
+  else if (ifCoordinPoly(cLat, cLng, ajax_region_Arr[1]))
+  return "NSW"
+  else if (ifCoordinPoly(cLat, cLng, ajax_region_Arr[2]))
+  return "QLD"
+  else if (ifCoordinPoly(cLat, cLng, ajax_region_Arr[3]))
+  return "NT"
+  else if (ifCoordinPoly(cLat, cLng, ajax_region_Arr[4]))
+  return "SA"
+  else if (ifCoordinPoly(cLat, cLng, ajax_region_Arr[5]))
+  return "WA"
+  else if (ifCoordinPoly(cLat, cLng, ajax_region_Arr[6]))
+  return "TAS"
+  else return "Undefined"
 }
 
 // JS - Google Vector Map popups 
@@ -284,8 +331,21 @@ $(() => {
       add_mouseout_listener(obj_Arr[i])
     }
     let infoWindow
+
+    const contentString =
+    '<div>'+
+    '<p>You are currently located in: </p>'+
+    '<p id="userLocation"></p>'+
+    '</div>'
   
-    infoWindow = new google.maps.InfoWindow();
+    infoWindow = new google.maps.InfoWindow({
+      // content: contentString,
+      maxWidth: 200,
+    });
+
+    const marker = new google.maps.Marker({
+      map,
+    });
     
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -293,11 +353,20 @@ $(() => {
           const pos = {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
+            // lat: -34.5,
+            // lng: 138.5
           };
-          infoWindow.setPosition(pos);
-          infoWindow.setContent("Location found.");
-          infoWindow.open(map);
-          map.setCenter(pos);
+          marker.setPosition(pos)
+          infoWindow.setContent('<div>'+
+          '<p>You are currently located in: </p>'+
+          '<p>'+
+          ployToLocate(pos.lat, pos.lng)+
+          '</p>'+
+          '</div>')
+          console.log(pos)
+          marker.addListener("click", () => {
+            infoWindow.open(map, marker);
+          });
         },
         () => {
           handleLocationError(true, infoWindow, map.getCenter());
@@ -319,3 +388,83 @@ $(() => {
       }
   }
 })
+
+
+
+// function setParams() { 
+//   return [
+//     {url: "/api/sms", data: {message: '[FireWhere]' + $('#message').text(),to: '+61415140829' }},
+//     {
+//       url: "https://4zvhzhjn2h.execute-api.us-east-2.amazonaws.com/test/firewhere", 
+//       data: {data: '"' + currentLocation.lat + ',' + currentLocation.lng + '"'}
+//     }
+//   ]
+// }
+
+// async function getParams() {
+//   let params = await setParams().then(res => {return res})
+//   console.log(params)
+// }
+navigator.geolocation.getCurrentPosition((res) => {
+  let pos = {
+    lat : res.coords.latitude,
+    lng : res.coords.longitude
+  }
+  currentLocation = pos
+
+  let ajax_post_param_Arr =[
+      {url: "/api/sms", data: {message: '[FireWhere]' + $('#message').text(),to: '+61415140829' }},
+      {
+        url: "https://4zvhzhjn2h.execute-api.us-east-2.amazonaws.com/test/firewhere", 
+        data: {data: '"' + currentLocation.lat + ',' + currentLocation.lng + '"'}
+      }
+    ]
+  
+  // data post ajax
+  function post(params) {
+    $.ajax({
+      type: "POST",
+      url:params.url,
+      dataType: "json",
+      data: params.data,
+      withCredentials: true,
+      allowedHeaders: "*",
+      contentType:"application/json",
+      beforeSend: function(request) {        
+        request.setRequestHeader("Access-Control-Allow-Origin","http://localhost:8080/");
+        request.setRequestHeader("Source","101");
+        request.setRequestHeader("Token","aaw--wssw-ss...");
+      }, 
+      success: (data) => {
+        params.callBack(data)
+      },
+      error(error){
+        console.log(error);
+      }
+    });
+  }
+  
+  //post location data and get prediction response data from cloud
+  post({
+    url: ajax_post_param_Arr[1].url, 
+    data: ajax_post_param_Arr[1].data, 
+    callBack: res => {
+      $('#message').html(res)
+      console.log(res)
+    }
+  })
+  
+  //handle send message button event
+  $('#send').click(async () => {
+  //post api for sending message
+    post({
+      url: ajax_post_param_Arr[0].url,
+      data: ajax_post_param_Arr[0].data,
+      callBack: res => {
+        console.log(res)
+      }
+    })  
+
+})
+})
+

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>FireWhere</title>
+    <title>Index</title>
 
     <!-- Compiled and minified CSS -->
 
@@ -15,12 +15,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.js"></script>
-<<<<<<< HEAD
-    <!-- Google Map -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-=======
     <script src="/socket.io/socket.io.js"></script>
->>>>>>> 6eac48c708d19f218d0c3150022858bc873686d5
 </head>
 
 <!-- <link href="style.sass" rel="stylesheet"> -->
@@ -123,10 +118,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Google Map API -->
-            <script async
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtbKIID5sZzw5lu7otU960DnXQzwtGkG4&callback=initMap">
-            </script>
 
             <!-- conditional prediction tab: temperature subtab -->
             <div class="pages flex" id="temperature">
@@ -273,11 +264,6 @@
                         </div>
                     </div>
                 </div>
-                <script type="module"> 
-                    import sendSMS from './SMSmodule.js'
-
-                    sendSMS()
-                </script>
             </div>
 
             <!-- data tab -->
@@ -521,7 +507,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
         crossorigin="anonymous"></script>
+    <!-- Google Map API -->
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtbKIID5sZzw5lu7otU960DnXQzwtGkG4&callback=initMap&libraries=&v=weekly"
+        async></script>
+    <!-- Google Map -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="env.js"></script>
+    <!-- <script type="module" src="SMS.js"></script> -->
 </body>
 
 </html>
