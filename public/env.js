@@ -9,13 +9,16 @@ let warning_data = [
 ]
 let temperature_data, humidity_data, season_data, data_data, card_data
 let VIC, NSW, QLD, NT, SA, WA, TAS = []
-let currentLocation
+let currentLocation, times, areas
 
+// const socket = io('https://40j2u94005.oicp.vip')
+const socket = io('http://localhost:8080/')
+var messageContainer = document.getElementById('message-container')
+var messageForm = document.getElementById('send-container')
+var messageInput = document.getElementById('message-input')
 
 socket.on('number', (msg) => {
 })
-
-console.log('test')
 
 // jQuery
 $(function() {
@@ -351,10 +354,10 @@ $(() => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-            // lat: -34.5,
-            // lng: 138.5
+            // lat: position.coords.latitude,
+            // lng: position.coords.longitude,
+            lat: -34.5,
+            lng: 138.5
           };
           marker.setPosition(pos)
           infoWindow.setContent('<div>'+
@@ -364,6 +367,7 @@ $(() => {
           '</p>'+
           '</div>')
           console.log(pos)
+          areas = ployToLocate(pos.lat, pos.lng)
           marker.addListener("click", () => {
             infoWindow.open(map, marker);
           });
@@ -389,22 +393,6 @@ $(() => {
   }
 })
 
-
-
-// function setParams() { 
-//   return [
-//     {url: "/api/sms", data: {message: '[FireWhere]' + $('#message').text(),to: '+61415140829' }},
-//     {
-//       url: "https://4zvhzhjn2h.execute-api.us-east-2.amazonaws.com/test/firewhere", 
-//       data: {data: '"' + currentLocation.lat + ',' + currentLocation.lng + '"'}
-//     }
-//   ]
-// }
-
-// async function getParams() {
-//   let params = await setParams().then(res => {return res})
-//   console.log(params)
-// }
 navigator.geolocation.getCurrentPosition((res) => {
   let pos = {
     lat : res.coords.latitude,
@@ -464,7 +452,30 @@ navigator.geolocation.getCurrentPosition((res) => {
         console.log(res)
       }
     })  
+  })
+})
 
+
+appendMessage('You joined')
+// socket.emit('new-user', name)
+
+socket.on('chat-message', data => {
+  appendMessage(data)
 })
+
+messageForm.addEventListener('submit', e=> {
+  times = new Date().toLocaleTimeString()
+  e.preventDefault()
+  var message = messageInput.value
+  $(".message-container").append("<div>" + times + " from a user in " + areas + " --- " + message  + "</div>")
+  
+  console.log(message)
+  socket.emit('send-chat-message', message)
+  messageInput.value=''
 })
+
+function appendMessage(message) {
+    times = new Date().toLocaleTimeString()
+    $(".message-container").append("<div>" + times + " --- " + message  + "</div>")
+} 
 

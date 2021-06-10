@@ -363,3 +363,13 @@ button.btn_selected{
   /* The max width of the info window. */
   width: 200px;
 }
+.message-container {
+  height: 78%;
+  width: 100%;
+  padding: 5px 10px;
+  display: inline-block;
+  overflow: auto;
+  white-space: nowrap;
+  justify-content: center;
+  box-shadow:inset 0px 15px 10px -15px #000, inset 0px -15px 10px -15px #000;
+}
