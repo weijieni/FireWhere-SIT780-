@@ -1,4 +1,4 @@
-const socket = io('http://40j2u94005.oicp.vip')
+const socket = io('https://40j2u94005.oicp.vip')
 var messageContainer = document.getElementById('message-container')
 var messageForm = document.getElementById('send-container')
 var messageInput = document.getElementById('message-input')
