@@ -3,11 +3,9 @@ const bodyParser = require("body-parser");
 // const mongoose = require ('mongoose')
 let express = require("express");
 let app = express()
-const axios = require('axios');
 const session = require('express-session');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcrypt');
 
 
 const Humidity = require('./model/humidity')
@@ -17,14 +15,12 @@ const User = require('./model/testDb')
 const Research = require('./model/research')
 const Admin = require('./model/admin')
 
-const accountSid = "AC220f11629e7329aa75eb30753dec3db7";
-const authToken = "7caa2517026f9d387c2253fafab7edd3";
-const SMSclient = require('twilio')(accountSid, authToken);
-
-
 let http = require('http').createServer(app);
 let io = require('socket.io')(http);
 
+// import jQuery from 'jquery'
+// import a from './public/SMS'
+// console.log(jQuery)
 
 // connect Mongodb Atlas
 const uri = "mongodb+srv://admin_wni:020419Ni@fwcluster.gzfkv.mongodb.net/FWCluster?retryWrites=true&w=majority";
@@ -378,21 +374,14 @@ app.post('/api/logout',(req,res)=>{
 })
 
 
-
 app.post('/api/login',passport.authenticate('local'),(req,res)=>{
   res.json({status:'ok',message:"admin login successful"})
 })
 
 
-app.get('logout', function (req, res){
-  req.logout();
-  res.redirect('/')
-});
-
 //chat
 io.on('connection', socket => {
-  // socket.emit('chat-message', 'You joined !')
-  socket.emit('chat-message', 'Welcome to Firewhere')
+  // socket.emit('chat-message', 'Welcome to Firewhere')
   socket.on('send-chat-message', message =>{
     socket.broadcast.emit('chat-message', message)
   })
@@ -404,18 +393,4 @@ http.listen(port,()=>{
 
 //this is only needed for Cloud foundry 
 // require("cf-deployment-tracker-client").track();
-
-app.post('/api/sms', function (req, res){
-  SMSclient.messages
-  .create({
-    body: req.body.message,
-    from: '+17573201561',
-    to: req.body.to
-  })
-  .then(message => {
-    console.log(message.sid)
-    res.json({status:'ok'})
-  }).catch(err => console.log(err))
-});
-
 

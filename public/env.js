@@ -354,10 +354,10 @@ $(() => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const pos = {
-            // lat: position.coords.latitude,
-            // lng: position.coords.longitude,
-            lat: -34.5,
-            lng: 138.5
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+            // lat: -34.5,
+            // lng: 138.5
           };
           marker.setPosition(pos)
           infoWindow.setContent('<div>'+
@@ -455,20 +455,21 @@ navigator.geolocation.getCurrentPosition((res) => {
   })
 })
 
+  WelcomeMessage()
 
-appendMessage('You joined')
 // socket.emit('new-user', name)
 
 socket.on('chat-message', data => {
   appendMessage(data)
 })
 
+
+
 messageForm.addEventListener('submit', e=> {
   times = new Date().toLocaleTimeString()
   e.preventDefault()
   var message = messageInput.value
-  $(".message-container").append("<div>" + times + " from a user in " + areas + " --- " + message  + "</div>")
-  
+  $(".message-container").append("<div>" + times + " from a user in " + areas + ": " + message  + "</div>")
   console.log(message)
   socket.emit('send-chat-message', message)
   messageInput.value=''
@@ -476,6 +477,11 @@ messageForm.addEventListener('submit', e=> {
 
 function appendMessage(message) {
     times = new Date().toLocaleTimeString()
-    $(".message-container").append("<div>" + times + " --- " + message  + "</div>")
+    $(".message-container").append("<div>" + times + " from a user in " + areas + ": " + message  + "</div>")
 } 
 
+function WelcomeMessage() {
+  times = new Date().toLocaleTimeString()
+  $(".message-container").append("<div>" + times  + " --- " + "You joined!" + "</div>")
+  $(".message-container").append("<div>" + times  + " --- " +"Welcome to Firewhere" + "</div>")
+} 
