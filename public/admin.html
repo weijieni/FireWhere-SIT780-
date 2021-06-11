@@ -118,18 +118,6 @@
 
             <!-- conditional prediction tab: temperature subtab -->
             <div class="pages flex" id="temperature">
-                <!-- <div class="dropdown dropdown_extra_2">
-                    <label style="margin-right: 10px;">Filtered by&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Temperature</label>
-                        <select class="form-select-sm" aria-label="Temperature">
-                            <option value="" selected>All</option>
-                            <option value="1">Below 30℃</option>
-                            <option value="2">30℃ - 35℃</option>
-                            <option value="3">35℃ - 40℃</option>
-                            <option value="4">Exceed 40℃</option>
-                        </select>
-                </div> -->
-                <!-- <button type="button" class="btn btn-primary btn_extra" style="margin-top: 25px;">Search</button>
-                <button type="button" class="btn btn-secondary btn_extra" style="margin-top: 25px;">Clear</button> -->
                 <div style="padding: 0 5px;">
                     <table id="temperature_table" data-height="600" data-pagination="true" data-search=”true”>
                         <thead>
@@ -146,17 +134,6 @@
 
             <!-- conditional prediction tab: humidity subtab -->
             <div class="pages flex" id="humidity">
-                <!-- <div class="dropdown dropdown_extra_2">
-                    <label style="margin-right: 10px;">Filtered by&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Humidity</label>
-                    <select class="form-select-sm" aria-label="Humidity">
-                        <option value="" selected>All</option>
-                        <option value="1">Below 30%</option>
-                        <option value="2">30% - 70%</option>
-                        <option value="3">Exceed 70%</option>
-                    </select>
-                </div>
-                <button type="button" class="btn btn-primary btn_extra" style="margin-top: 25px;">Search</button>
-                <button type="button" class="btn btn-secondary btn_extra" style="margin-top: 25px;">Clear</button> -->
                 <div style="padding: 0 5px;">
                     <table id="humidity_table" data-height="600" data-search="true" data-pagination="true">
                         <thead>
@@ -173,18 +150,6 @@
 
             <!-- conditional prediction tab: season subtab -->
             <div class="pages flex" id="season">
-                <!-- <div class="dropdown dropdown_extra_2">
-                    <label style="margin-right: 10px;">Filtered by&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Season</label>
-                    <select class="form-select-sm" aria-label="Season">
-                        <option value="" selected>All</option>
-                        <option value="1">Spring</option>
-                        <option value="2">Summer</option>
-                        <option value="3">Autumn</option>
-                        <option value="4">Winter</option>
-                    </select>
-                </div>
-                <button type="button" class="btn btn-primary btn_extra" style="margin-top: 25px;">Search</button>
-                <button type="button" class="btn btn-secondary btn_extra" style="margin-top: 25px;">Clear</button> -->
                 <div style="padding: 0 5px;">
                     <table id="season_table" data-search="true" data-height="600" data-pagination="true">
                         <thead>
@@ -201,32 +166,6 @@
 
             <!-- warning tab -->
             <div class="pages flex" id="warning">
-                <!-- <div class="dropdown dropdown_extra_2">
-                    <label style="margin-right: 10px;">Filtered by&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Warning Level</label>
-                    <select class="form-select-sm" aria-label="Warning">
-                        <option value="" selected>All</option>
-                        <option value="1">Green</option>
-                        <option value="2">Blue</option>
-                        <option value="3">Yellow</option>
-                        <option value="4">Orange</option>
-                        <option value="5">Red</option>
-                        <option value="6">Code Red</option>
-                    </select>
-                </div>
-                <div class="dropdown dropdown_extra_2">
-                    <label style="margin-right: 10px;">Region</label>
-                    <select class="form-select-sm" aria-label="region">
-                        <option value="" selected>All</option>
-                        <option value="1">New South Wales</option>
-                        <option value="2">Queensland</option>
-                        <option value="3">South Australia</option>
-                        <option value="4">Tasmania</option>
-                        <option value="5">Victoria</option>
-                        <option value="6">Western Australia</option>
-                    </select>
-                </div>
-                <button type="button" class="btn btn-primary btn_extra" style="margin-top: 25px;">Search</button>
-                <button type="button" class="btn btn-secondary btn_extra" style="margin-top: 25px;">Clear</button> -->
                 <div style="padding: 0 5px;">
                     <table id="warning_table" data-search="true" data-pagination="true" data-height="600">
                         <thead>
@@ -250,9 +189,10 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Close"></button>
                             </div>
-                            <div class="modal-body" id="message">
-                                Bush fire warning level of your region is: HIGH.
+                            <div class="modal-body">
+                                Bush fire warning message: 
                             </div>
+                            <div id="message"></div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="send">Send
@@ -346,7 +286,7 @@
             <!-- user sign up tab -->
             <div class="pages flex" id="user">
                 <div class="container" style="margin-top: 50px">
-                    <h4>Please sign up you details to receive warning message.</h4><br>
+                    <h4>Please sign up your details to receive warning message.</h4><br>
                     <form id="us-form">
                         <div class="form-floating mb-3">
                             <input type="phone" class="form-control" id="phone" placeholder="Phone">
@@ -432,14 +372,6 @@
         //     url: '/api/getwaring'
         // });
     </script>
-    <!-- socket IO Served by the server -->
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var socket = io();
-        socket.on('usercnt', function (msg) {
-            document.getElementById("count").innerHTML = msg;
-        })
-    </script>
     <script>
         window.onload = async function () {
             const result = await fetch('/api/admin', {
@@ -498,7 +430,14 @@
         async></script>
     <!-- Google Map -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="env.js"></script>
+    <!-- socket IO Served by the server -->
+    <script>
+        socket.on('usercnt', function (msg) {
+            document.getElementById("count").innerHTML = msg;
+        })
+    </script>
     <!-- <script type="module" src="SMS.js"></script> -->
 </body>
 

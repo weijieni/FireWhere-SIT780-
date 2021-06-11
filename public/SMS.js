@@ -1,32 +1,50 @@
-// // import Vonage from '@vonage/server-sdk'
-// import jQuery from 'jquery'
-var a = 1
-console.log("jQuery")
-export default a
-// // import Vonage from '@vonage/server-sdk'
+// import {sendSMS} from '../model/SMSmodule'
+// console.log(sendSMS)
 
-// const vonage = new Vonage({
-//   apiKey: "be30c2bf",
-//   apiSecret: "uwQTOlEiVtvF8tx2"
-// })
-// const from = "FireWhere"
-// const to = "+86 13245751937"
-// const text = 'A text message sent using the Vonage SMS API'
+// const accountSid = "AC220f11629e7329aa75eb30753dec3db7";
+// const authToken = "7caa2517026f9d387c2253fafab7edd3";
+// const SMSclient = require('twilio')(accountSid, authToken);
 
+// $.ajax({
+//     type: "POST",
+//     url: "/api/sms",
+//     dataType: "json",
+//     async: false,
+//     data: {},
+//     success: (req,res) => {
+//         SMSclient.messages
+//         .create({
+//             body: '[FireWhere] ' + $('#message').text(),
+//             from: '+17573201561',
+//             to: req.body.to
+//           })
+//         .then(message => {
+//           console.log(message.sid)
+//           res.json({status:'ok'})
+//         }).catch(err => console.log(err))
+//       },
+//     error(error){
+//       console.log(error);
+//     }
+// });
+const accountSid = "AC220f11629e7329aa75eb30753dec3db7";
+const authToken = "7caa2517026f9d387c2253fafab7edd3";
+const SMSclient = require('twilio')(accountSid, authToken);
 
-// $(function () {
-// $("#send").on('click', function() {
-//     console.log("click")
-//     vonage.message.sendSms(from, to, text, (err, responseData) => {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             if(responseData.messages[0]['status'] === "0") {
-//                 console.log("Message sent successfully.");
-//             } else {
-//                 console.log(`Message failed with error: ${responseData.messages[0]['error-text']}`);
-//             }
-//         }
-//     })
-// })
-// })
+console.log(SMSclient)
+
+$(function() {
+    $('#send').click(() => {
+      console.log('clicked')
+      SMSclient.messages
+      .create({
+        body: '[FireWhere] ' + $('#message').text(),
+        from: '+17573201561',
+        to: req.body.to
+      })
+      .then(message => {
+        console.log(message.sid)
+        res.json({status:'ok'})
+      }).catch(err => console.log(err))
+    })
+})

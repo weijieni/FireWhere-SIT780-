@@ -17,13 +17,13 @@ const User = require('./model/testDb')
 const Research = require('./model/research')
 const Admin = require('./model/admin')
 
+const accountSid = "AC220f11629e7329aa75eb30753dec3db7";
+const authToken = "7caa2517026f9d387c2253fafab7edd3";
+const SMSclient = require('twilio')(accountSid, authToken);
+
+
 let http = require('http').createServer(app);
 let io = require('socket.io')(http);
-
-// import jQuery from 'jquery'
-// import a from './public/SMS'
-// console.log(jQuery)
-// console.log(a)
 
 
 // connect Mongodb Atlas
@@ -391,6 +391,7 @@ app.get('logout', function (req, res){
 
 //chat
 io.on('connection', socket => {
+  // socket.emit('chat-message', 'You joined !')
   socket.emit('chat-message', 'Welcome to Firewhere')
   socket.on('send-chat-message', message =>{
     socket.broadcast.emit('chat-message', message)
@@ -403,4 +404,18 @@ http.listen(port,()=>{
 
 //this is only needed for Cloud foundry 
 // require("cf-deployment-tracker-client").track();
+
+app.post('/api/sms', function (req, res){
+  SMSclient.messages
+  .create({
+    body: req.body.message,
+    from: '+17573201561',
+    to: req.body.to
+  })
+  .then(message => {
+    console.log(message.sid)
+    res.json({status:'ok'})
+  }).catch(err => console.log(err))
+});
+
 
