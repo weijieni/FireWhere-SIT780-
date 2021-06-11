@@ -373,3 +373,8 @@ button.btn_selected{
   justify-content: center;
   box-shadow:inset 0px 15px 10px -15px #000, inset 0px -15px 10px -15px #000;
 }
+.notification {
+  display: none;
+  z-index: 999;
+  align-self: center;
+}

@@ -403,7 +403,7 @@ navigator.geolocation.getCurrentPosition((res) => {
   let ajax_post_param_Arr =[
       {url: "/api/sms", data: {message: '[FireWhere]' + $('#message').text(),to: '+61415140829' }},
       {
-        url: "https://4zvhzhjn2h.execute-api.us-east-2.amazonaws.com/test/firewhere", 
+        url: "https://4zvhzhjn2h.execute-api.us-east-2.amazonaws.com/test2/firewhere", 
         data: {data: '"' + currentLocation.lat + ',' + currentLocation.lng + '"'}
       }
     ]
@@ -415,13 +415,9 @@ navigator.geolocation.getCurrentPosition((res) => {
       url:params.url,
       dataType: "json",
       data: params.data,
-      withCredentials: true,
-      allowedHeaders: "*",
-      contentType:"application/json",
+      // contentType:"application/json",
       beforeSend: function(request) {        
-        request.setRequestHeader("Access-Control-Allow-Origin","http://localhost:8080/");
-        request.setRequestHeader("Source","101");
-        request.setRequestHeader("Token","aaw--wssw-ss...");
+        request.setRequestHeader("X-CSRF-TOKEN","%5B%7B%22token%22%3A%22V1Q05yKQFjHbrr0simPZ0jIWBpknwv2OSkCA0Hdeu6A%3D%22%2C%22version%22%3A%22hash-v1%22%7D%5D");
       }, 
       success: (data) => {
         params.callBack(data)
@@ -452,6 +448,8 @@ navigator.geolocation.getCurrentPosition((res) => {
         console.log(res)
       }
     })  
+    var notification = $('#notification')
+    notification.show(200)
   })
 })
 
@@ -476,6 +474,6 @@ messageForm.addEventListener('submit', e=> {
 
 function appendMessage(message) {
     times = new Date().toLocaleTimeString()
-    $(".message-container").append("<div>" + times + " --- " + message  + "</div>")
-} 
+    $(".message-container").append("<div>" + times + " from a user in " + areas + " --- " + message  + "</div>")
+  } 
 

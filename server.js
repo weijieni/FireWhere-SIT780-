@@ -17,10 +17,9 @@ const User = require('./model/testDb')
 const Research = require('./model/research')
 const Admin = require('./model/admin')
 
-const accountSid = "AC220f11629e7329aa75eb30753dec3db7";
-const authToken = "7caa2517026f9d387c2253fafab7edd3";
+const accountSid = process.env.ACCOUNT_SID;
+const authToken = process.env.AUTHTOKEN;
 const SMSclient = require('twilio')(accountSid, authToken);
-
 
 let http = require('http').createServer(app);
 let io = require('socket.io')(http);
