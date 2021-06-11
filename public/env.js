@@ -401,7 +401,9 @@ navigator.geolocation.getCurrentPosition((res) => {
   currentLocation = pos
 
   let ajax_post_param_Arr =[
-      {url: "/api/sms", data: {message: '[FireWhere]' + $('#message').text(),to: '+61415140829' }},
+      {url: "/api/sms", data: {message: '[FireWhere] ' + ' Current bush fire level in your area is "low risk of bush fire"' 
+      // + $('#message').text()
+      ,to: '+61415140829' }},
       {
         url: "https://4zvhzhjn2h.execute-api.us-east-2.amazonaws.com/test2/firewhere", 
         data: {data: '"' + currentLocation.lat + ',' + currentLocation.lng + '"'}
@@ -439,7 +441,7 @@ navigator.geolocation.getCurrentPosition((res) => {
   })
   
   //handle send message button event
-  $('#send').click(async () => {
+  $('#send').click(() => {
   //post api for sending message
     post({
       url: ajax_post_param_Arr[0].url,
@@ -447,9 +449,10 @@ navigator.geolocation.getCurrentPosition((res) => {
       callBack: res => {
         console.log(res)
       }
-    })  
-    var notification = $('#notification')
-    notification.show(200)
+    }).success(() => {
+      var notification = $('#notification')
+      notification.show(200)
+    })
   })
 })
 

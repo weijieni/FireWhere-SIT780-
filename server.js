@@ -19,6 +19,7 @@ const accountSid = process.env.ACCOUNT_SID;
 const authToken = process.env.AUTHTOKEN;
 const SMSclient = require('twilio')(accountSid, authToken);
 
+
 let http = require('http').createServer(app);
 let io = require('socket.io')(http);
 
@@ -398,3 +399,16 @@ http.listen(port,()=>{
 //this is only needed for Cloud foundry 
 // require("cf-deployment-tracker-client").track();
 
+// send sms api
+app.post('/api/sms', function (req, res){
+  SMSclient.messages
+  .create({
+    body: req.body.message,
+    from: '+17573201561',
+    to: req.body.to
+  })
+  .then(message => {
+    console.log(message.sid)
+    res.json({status:'ok'})
+  }).catch(err => console.log(err))
+});
