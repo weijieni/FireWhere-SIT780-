@@ -3,11 +3,9 @@ const bodyParser = require("body-parser");
 // const mongoose = require ('mongoose')
 let express = require("express");
 let app = express()
-const axios = require('axios');
 const session = require('express-session');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcrypt');
 
 
 const Humidity = require('./model/humidity')
@@ -378,16 +376,10 @@ app.post('/api/logout',(req,res)=>{
 })
 
 
-
 app.post('/api/login',passport.authenticate('local'),(req,res)=>{
   res.json({status:'ok',message:"admin login successful"})
 })
 
-
-app.get('logout', function (req, res){
-  req.logout();
-  res.redirect('/')
-});
 
 //chat
 io.on('connection', socket => {
