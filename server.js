@@ -6,6 +6,7 @@ let app = express()
 const session = require('express-session');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
+require('dotenv').config();
 
 
 const Humidity = require('./model/humidity')
