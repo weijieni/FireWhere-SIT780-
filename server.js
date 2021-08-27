@@ -18,7 +18,7 @@ const Admin = require('./model/admin')
 const accountSid = process.env.ACCOUNT_SID;
 const authToken = process.env.AUTHTOKEN;
 // const accountSid = 'AC220f11629e7329aa75eb30753dec3db7';
-// const authToken = '378d0138faa94b479eb4224ad58ce3fc';
+// const authToken = 'f212e58a4df8dbf49e9bb0f0c581dcd5';
 const SMSclient = require('twilio')(accountSid, authToken);
 
 
