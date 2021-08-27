@@ -16,12 +16,17 @@ const User = require('./model/testDb')
 const Research = require('./model/research')
 const Admin = require('./model/admin')
 
-const accountSid = process.env.ACCOUNT_SID;
-const authToken = process.env.AUTHTOKEN;
-// const accountSid = 'AC220f11629e7329aa75eb30753dec3db7';
-// const authToken = 'f212e58a4df8dbf49e9bb0f0c581dcd5';
-const SMSclient = require('twilio')(accountSid, authToken);
 
+const accountSid = '';
+const authToken = '';
+// const accountSid = process.env.ACCOUNT_SID;
+// const authToken = process.env.AUTHTOKEN;
+
+if (accountSid != '' && authToken != '') {
+  const SMSclient = require('twilio')(accountSid, authToken)
+} else {
+  console.log("#######" + "Message sending disabled. For testing purpose, please ask @Leo Ni(in MsTeams) or wni@deakin.edu.au for Twilio account details." + "#######");
+}
 
 let http = require('http').createServer(app);
 let io = require('socket.io')(http);
@@ -408,7 +413,7 @@ app.post('/api/sms', function (req, res){
   SMSclient.messages
   .create({
     body: req.body.message,
-    from: '+14159428393',
+    from: process.env.FROM_MOBILE,
     to: req.body.to
   })
   .then(message => {
