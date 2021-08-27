@@ -15,8 +15,10 @@ const User = require('./model/testDb')
 const Research = require('./model/research')
 const Admin = require('./model/admin')
 
-const accountSid = process.env.ACCOUNT_SID;
-const authToken = process.env.AUTHTOKEN;
+// const accountSid = process.env.ACCOUNT_SID;
+// const authToken = process.env.AUTHTOKEN;
+const accountSid = 'AC220f11629e7329aa75eb30753dec3db7';
+const authToken = '378d0138faa94b479eb4224ad58ce3fc';
 const SMSclient = require('twilio')(accountSid, authToken);
 
 
@@ -50,7 +52,8 @@ const openConnection = (message) => {
 
 openConnection();
 
-var port = process.env.PORT || 8080;
+const port = 8080;
+const host = '0.0.0.0';
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json())
@@ -392,7 +395,7 @@ io.on('connection', socket => {
   })
 })
 
-http.listen(port,()=>{
+http.listen(port, host,()=>{
   console.log("Listening on port ", port);
 });
 
@@ -404,7 +407,7 @@ app.post('/api/sms', function (req, res){
   SMSclient.messages
   .create({
     body: req.body.message,
-    from: '+17573201561',
+    from: '+14159428393',
     to: req.body.to
   })
   .then(message => {
