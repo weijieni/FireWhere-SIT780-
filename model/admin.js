@@ -1,15 +1,20 @@
 var mongoose = require('mongoose');
-var testDb = mongoose.connect("mongodb+srv://admin_wni:020419Ni@fwcluster.gzfkv.mongodb.net/FWCluster?retryWrites=true&w=majority");
-
+const bcrypt=require('bcrypt');
 const AdminSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: true
+        required: true,
+		unique: true
     },
     password: {
         type: String,
         required: true
+    },
+	role: {
+        type: String,
+        required: true
     }
+	
 },
 { collection:'admin' }
 );
