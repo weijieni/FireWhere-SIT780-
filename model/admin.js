@@ -19,5 +19,20 @@ const AdminSchema = new mongoose.Schema({
 { collection:'admin' }
 );
 
+AdminSchema.pre('save',function(next){
+    var admin=this;
+    if(admin.isModified('password')){
+        bcrypt.genSalt(10,(err,salt)=>{
+            bcrypt.hash(admin.password,salt,(err,hash)=>{
+                admin.password=hash;
+                next();
+            });
+            
+        });
+    }else{
+        next();
+    }
+});
+
 const Admin = mongoose.model('Admin', AdminSchema);
 module.exports = Admin
