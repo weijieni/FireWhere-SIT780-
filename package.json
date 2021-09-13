@@ -17,6 +17,7 @@
     "http-proxy": "^1.8.1",
     "jquery": "^3.6.0",
     "materialize-css": "^1.0.0",
+    "moment": "^2.29.1",
     "mongodb": "^3.6.6",
     "mongoose": "^5.12.5",
     "passport": "^0.4.1",

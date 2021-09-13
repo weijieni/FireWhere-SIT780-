@@ -13,12 +13,9 @@ let currentLocation, times, areas
 
 // const socket = io('https://40j2u94005.oicp.vip')
 const socket = io('http://localhost:8080/')
-var messageContainer = document.getElementById('message-container')
-var messageForm = document.getElementById('send-container')
-var messageInput = document.getElementById('message-input')
-
-socket.on('number', (msg) => {
-})
+const query = document.querySelector('.chat-messages')
+var messageContainer = document.getElementById('chat-messages')
+var messageForm = document.getElementById('chat-form')
 
 // jQuery
 $(function() {
@@ -39,6 +36,16 @@ $(function() {
       nav_bar.fadeIn(600)
     } else {
       nav_bar.fadeOut(300)
+    }
+  })
+
+  //handle chatbox show and hide
+  $('#chatIcon').click(function() {
+    var box = $('#chatbox')
+    if (box.css("display") == "none") {
+      box.fadeIn(600)
+    } else {
+      box.fadeOut(300)
     }
   })
 
@@ -456,33 +463,45 @@ navigator.geolocation.getCurrentPosition((res) => {
   })
 })
 
-  WelcomeMessage()
+//real-time socket.io
 
-// socket.emit('new-user', name)
-
-socket.on('chat-message', data => {
-  appendMessage(data)
+socket.on('init', message => {
+  welcomeMessage(message);
 })
 
+socket.on('message', message => {
+  outputMessage(message);
 
-
-messageForm.addEventListener('submit', e=> {
-  times = new Date().toLocaleTimeString()
-  e.preventDefault()
-  var message = messageInput.value
-  $(".message-container").append("<div>" + times + " from a user in " + areas + ": " + message  + "</div>")
-  console.log(message)
-  socket.emit('send-chat-message', message)
-  messageInput.value=''
+  query.scrollTop = query.scrollHeight;
 })
 
-function appendMessage(message) {
-    times = new Date().toLocaleTimeString()
-    $(".message-container").append("<div>" + times + " from a user in " + areas + ": " + message  + "</div>")
-} 
+messageForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  var message = e.target.elements.msg.value;
+  socket.emit('chatMessage', message);
+  e.target.elements.msg.value = '';
+})
 
-function WelcomeMessage() {
-  times = new Date().toLocaleTimeString()
-  $(".message-container").append("<div>" + times  + " --- " + "You joined!" + "</div>")
-  $(".message-container").append("<div>" + times  + " --- " +"Welcome to Firewhere" + "</div>")
+function outputMessage(message) {
+  const div = document.createElement('div');
+  div.classList.add('message');
+  div.innerHTML = `<div class="message">
+  <p class="meta">A user from ${areas} <span>${message.time}</span></p>
+  <p class="text">
+    ${message.text}
+  </p>
+</div>`;
+  document.querySelector('.chat-messages').appendChild(div);
+}
+
+function welcomeMessage(message) {
+  const div = document.createElement('div');
+  div.classList.add('message');
+  div.innerHTML = `<div class="message">
+  <p class="meta">Fireware Bot <span>${message.time}</span></p>
+  <p class="text">
+    ${message.text}
+  </p>
+</div>`;
+  document.querySelector('.chat-messages').appendChild(div);
 } 

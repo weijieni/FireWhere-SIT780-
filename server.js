@@ -12,6 +12,7 @@ require('dotenv').config();
 let http = require('http').createServer(app);
 let io = require('socket.io')(http);
 const router = require('./routes');
+const formatMessage = require('./model/messages')
 
 const uri = process.env.MONGODB_URL;
 console.log(uri);
@@ -47,25 +48,6 @@ app.get("/", function(req, res, next) {
     })
   })
 })
-
-// socket test
-var count=0;
-io.on('connection', function(socket) {
-  console.log('a user connected');
-  count++;
-  io.emit('usercnt',count);
-  socket.on('disconnect', function() {
-    console.log('user disconnected');
-    count--;
-    io.emit('usercnt'.count);
-  });
-  setInterval(()=>{
-    socket.emit('number', parseInt(Math.random()*10));
-  }, 1000);
-
-});
-
-
 
 app.use(express.urlencoded({ extended: false}));
 app.use(express.json());
@@ -112,12 +94,36 @@ app.post('/api/login',passport.authenticate('local',{'session': true}),passport.
 })
 
 //chat
+var count=0;
 io.on('connection', socket => {
-  // socket.emit('chat-message', 'Welcome to Firewhere')
-  socket.on('send-chat-message', message =>{
-    socket.broadcast.emit('chat-message', message)
-  })
-})
+  console.log('a user connected');
+  count++;
+
+  //welcome message
+  socket.emit('message', formatMessage('Welcome to FireWhere!'));
+
+  socket.broadcast.emit('message', formatMessage('JOINED THE CHAT'));
+
+  io.emit('usercnt',count);
+
+  //disconnect
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+    count--;
+    io.emit('message', formatMessage('LEFT THE CHAT'));
+    io.emit('usercnt', count);
+  });
+
+  //listen for message
+  socket.on('chatMessage', message => {
+    io.emit('message', formatMessage(message));
+  });
+
+  setInterval(()=>{
+    socket.emit('number', parseInt(Math.random()*10));
+  }, 1000);
+
+});
 
 http.listen(port, host,()=>{
   console.log("Listening on port ", port);

@@ -13,7 +13,7 @@ const accountSid = process.env.ACCOUNT_SID;
 const authToken = process.env.AUTHTOKEN;
 
 
-const SMSclient = require('twilio')(accountSid, authToken);
+// const SMSclient = require('twilio')(accountSid, authToken);
 	
 exports.createuser = function(req, res) {  
   const { username, password, role} = req.body
@@ -41,7 +41,7 @@ exports.logout = function(req, res) {
 	};
 	
 exports.sms = function (req, res){
-  if (accountSid != '')
+  if (accountSid == '')
   {
 	  console.log("#######" + "Message sending disabled. For testing purpose, please ask @Leo Ni(in MsTeams) or wni@deakin.edu.au for Twilio account details." + "#######");
   }
