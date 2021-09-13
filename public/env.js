@@ -12,7 +12,7 @@ let VIC, NSW, QLD, NT, SA, WA, TAS = []
 let currentLocation, times, areas
 
 // const socket = io('https://40j2u94005.oicp.vip')
-const socket = io('http://localhost:8080/')
+const socket = io()
 const query = document.querySelector('.chat-messages')
 var messageContainer = document.getElementById('chat-messages')
 var messageForm = document.getElementById('chat-form')
