@@ -2,13 +2,13 @@ const LocalStrategy=require('passport-local').Strategy;
 const mongoose=require('mongoose');
 const bcrypt=require('bcrypt');
 
-const User = require('../model/admin');
+const User = require('../model/user');
 
 module.exports=function(passport){
 passport.use(new LocalStrategy(function (username, password, done) {
 
     User.findOne({
-            username: username
+            userid: username
         })
         .then((user) => {
             if (!user) return done(null, false);

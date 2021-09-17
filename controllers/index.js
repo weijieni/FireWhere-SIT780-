@@ -227,7 +227,7 @@ exports.addseason = async (req,res)=>{
          season,
          warning,
          urgent
-       })
+       });
        console.log('test data created successfully: ', response)
   } catch (error) {
     console.log(error)
@@ -239,20 +239,31 @@ exports.addseason = async (req,res)=>{
 }
 
 exports.adduserdetail = async (req,res)=>{
-  console.log(req.body)
+
   
-  const { phone, region} = req.body
+  const { phone, region, email, name, password,userid,role} = req.body
   try {
        const response = await User.create({
-        phone,
-        region
-       })
-       console.log('User created successfully: ', response)
+			name,
+			email,
+			userid,
+			password,					
+			phone,
+			region,
+			role,
+       },function(err,data){
+		   console.log('retuened err: ' + err);
+		   console.log(data);
+          if(err) 
+		  {
+			  console.log('hello retuened err: ' + err);
+			  return res.send( {status:'error',message: 'failed to create user. Error: ' + err});
+		  }
+          return res.send({status :'ok', message : 'User created successfully'})
+	   });
   } catch (error) {
     console.log(error)
-    return res.json({ statud: 'error'})
+    return res.send({ status: 'error'})
   }
-
-  res.json({status:'ok'}) 
 }
 

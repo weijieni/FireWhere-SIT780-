@@ -13,7 +13,7 @@ function authRole(role)
 {
 	return (req,res,next) => {
 		if (req.app.user.role !== role) {
-			res.static(401);
+			res.status(401);
 			return res.send ('not allowed')
 		}
 		next()
