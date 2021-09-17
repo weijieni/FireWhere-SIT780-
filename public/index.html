@@ -11,6 +11,8 @@
 
     <!-- Materialize icons-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Awsome font -->
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -54,8 +56,8 @@
                             class="btn_icon" src="assets/research.png" />Research</button></li>
                 <li><button id="navbutton_8" class="navbutton" onclick="handleTab('#signup', '#navbutton_8')"><img
                             class="btn_icon" src="assets/signup.png" />Sign up</button></li>
-                <li><button id="navbutton_9" class="navbutton" onclick="handleTab('#chat', '#navbutton_9')"><img
-                            class="btn_icon" src="assets/chat.png" />Chat room</button></li>
+                <!-- <li><button id="navbutton_9" class="navbutton" onclick="handleTab('#chat', '#navbutton_9')"><img
+                            class="btn_icon" src="assets/chat.png" />Chat room</button></li> -->
                 <li><button id="navbutton_10" class="navbutton" onclick="handleTab('#login', '#navbutton_10')"><img
                             class="btn_icon" src="assets/admin.png" />Login</button></li>
             </ul>
@@ -69,6 +71,9 @@
                     <h5 id="tab_title" style="margin-left: 20px; text-transform: uppercase;">Welcome</h5>
                 </div>
                 <div style="display: flex; flex-direction: row; align-items: center;">
+                    <button type="button" class="rescuebtn" id="breathing" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                        RESCUE
+                    </button>
                     <img style="min-width: 16px; min-height: 16px; height: 16px; width: 16px;" src="assets/user.png" />
                     <div
                         style="min-width: auto; min-height: 16px; height: 16px; width: auto; padding-left: 12px; padding-right: 12px;">
@@ -76,6 +81,34 @@
                     </div>
                 </div>
             </nav>
+
+            <!-- rescue dialog -->
+            <div class="modal fade" style="z-index: 9999;" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLongTitle">Rescue</h5>
+                      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>Rescue Option 1</h5>
+                        <p><a href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" data-content="Popover body content is set in this attribute.">button</a></p>
+                        <hr>
+                        <h5>Rescue Option 2</h5>
+                        <p><a href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" data-content="Popover body content is set in this attribute.">button</a></p>
+                        <hr>
+                        <h5>Rescue Option 3</h5>
+                        <p><a href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" data-content="Popover body content is set in this attribute.">button</a></p>
+                    </div>
+                    <!-- <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                    </div> -->
+                  </div>
+                </div>
+            </div>
 
             <!-- welcome -->
             <div class="pages" id="welcome"
@@ -328,6 +361,27 @@
                 </div>
             </div>
 
+            <!-- Login tab -->
+            <div class="pages flex" id="login">
+                <div class="container" style="margin-top: 50px">
+                    <form id="login-form">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="username" placeholder="Username">
+                            <label for="floatingInput">Username</label>
+                        </div>
+                        <div class="form-floating">
+                            <input type="password" class="form-control" id="passlogin" placeholder="Password">
+                            <label for="floatingRegion">Password</label>
+                        </div>
+                        <br>
+                        <div class="card text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                        </div>
+                    </form>
+                    </form>
+                </div>
+            </div>
+
             <!-- Chatbox -->
             <div class="chat-container" id="chatbox" style="display:none;">
                 <header class="chat-header">
@@ -350,30 +404,10 @@
                   </div>
             </div>
             <div class="tab_comp">
-                <img class="tab_btn" id="chatIcon" src="./assets/messenger.png"/>
+                <img class="tab_btn bounce" id="chatIcon" src="./assets/messenger.png"/>
             </div>
 
 
-            <!-- Login tab -->
-            <div class="pages flex" id="login">
-                <div class="container" style="margin-top: 50px">
-                    <form id="login-form">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control" id="username" placeholder="Username">
-                            <label for="floatingInput">Username</label>
-                        </div>
-                        <div class="form-floating">
-                            <input type="password" class="form-control" id="passlogin" placeholder="Password">
-                            <label for="floatingRegion">Password</label>
-                        </div>
-                        <br>
-                        <div class="card text-center">
-                            <button type="submit" class="btn btn-primary btn-lg">Login</button>
-                        </div>
-                    </form>
-                    </form>
-                </div>
-            </div>
         </div>
     </div>
 

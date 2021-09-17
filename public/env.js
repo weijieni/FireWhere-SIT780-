@@ -44,8 +44,10 @@ $(function() {
     var box = $('#chatbox')
     if (box.css("display") == "none") {
       box.fadeIn(600)
+      $(this).removeClass('bounce')
     } else {
       box.fadeOut(300)
+      $(this).removeClass('bounce')
     }
   })
 
@@ -471,6 +473,7 @@ socket.on('init', message => {
 
 socket.on('message', message => {
   outputMessage(message);
+  $('#chatIcon').addClass('bounce')
 
   query.scrollTop = query.scrollHeight;
 })
