@@ -60,6 +60,8 @@
                             class="btn_icon" src="assets/chat.png" />Chat room</button></li> -->
                 <li><button id="navbutton_10" class="navbutton" onclick="handleTab('#login', '#navbutton_10')"><img
                             class="btn_icon" src="assets/admin.png" />Login</button></li>
+				<li><button id="navbutton_11" class="navbutton" onclick="handleTab('#alerts', '#navbutton_11')"><img
+                            class="btn_icon" src="assets/research.png" />Alerts & Warnings</button></li>
             </ul>
         </div>
 
@@ -312,6 +314,59 @@
                 </div>
             </div>
 
+			<!-- Alerts and Warnings -->
+			<div class="pages flex" id="alerts" style="overflow-y: scroll;">
+				<div class="container" style="margin-top: 10px">
+				 <h2>Feeds: Alerts &amp; Warnings</h2>
+					<ul id="feeds">
+						<li>
+							<a  class="head">Western Australia&nbsp;&nbsp;<div class="icon icon-right updn_indicator"></div></a>
+							<div class="content">
+							<h3>DFES Warnings- RSS feed</h3>
+								 <div class="content" id="wa_dfeslist"> </div>
+							<h3>DPAW - Prescribed Burning RSS feed</h3>
+								<div class="content" id="wa_dpawlist"></div>
+							</div>
+						</li>
+
+						<li>
+							<a  class="head">New South Wales&nbsp;&nbsp;<div class="icon icon-right updn_indicator"></div></a>
+							<div class="content">
+								<h3>Rural Fire Service RSS feed </h3>
+							<div class="content" id="nswlist"> </div>
+							</div>
+						</li>
+						<li>
+							<a  class="head">Northern Territory&nbsp;&nbsp;<div class="icon icon-right updn_indicator"></div></a>
+							<div class="content">
+								<div class="content" id="ntlist"> </div>
+							</div>
+						</li>
+						<li>
+							<a  class="head">Queensland&nbsp;&nbsp;<div class="icon icon-right updn_indicator"></div></a>
+							<div class="content">
+								<h3>Bushfire Alerts RSS</h3>
+								<div class="content" id="qldlist"></div>
+							</div>
+						</li>
+						<li>
+							<a  class="head">South Australia&nbsp;&nbsp;<div class="icon icon-right updn_indicator"></div></a>
+							<div class="content">
+								<h3>Country Fire Service RSS feed </h3>
+						<div class="content" id="salist"> </div>
+							</div>
+						</li>
+						<li>
+							<a  class="head">Victoria&nbsp;&nbsp;<div class="icon icon-right updn_indicator"></div></a>
+							<div class="content">
+								<h3>Country Fire Authority RSS feed</h3>
+								<div class="content" id="viclist"> </div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
             <!-- research tab -->
             <div class="pages" id="research">
                 <div class="research_box">
@@ -515,6 +570,7 @@
     <!-- Google Map -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="env.js"></script>
+	<script src="feed.js"></script>
     <!-- socket IO Served by the server -->
 
     <script>
