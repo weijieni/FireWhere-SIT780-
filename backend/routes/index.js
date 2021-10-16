@@ -31,6 +31,7 @@ router.post('/addtemperature',authUser,authRole(ROLE.ADMIN),controllers.addtempe
 router.get('/getseason',controllers.getseason);
 router.post('/addseason',authUser,authRole(ROLE.ADMIN),controllers.addseason);
 
+router.get('/getuser',controllers.getuser);
 router.post('/adduserdetail',controllers.adduserdetail);
 
 

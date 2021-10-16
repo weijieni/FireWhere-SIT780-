@@ -7,11 +7,10 @@ let warning_data = [
     urgent: "Urgent"
   }
 ]
-let temperature_data, humidity_data, season_data, data_data, card_data
+let temperature_data, humidity_data, season_data, data_data, card_data, daily_data=[]
 let VIC, NSW, QLD, NT, SA, WA, TAS = []
-let currentLocation, times, areas
+let currentLocation, times, areas, emergencyCount=0
 
-// const socket = io('https://40j2u94005.oicp.vip')
 const socket = io()
 const query = document.querySelector('.chat-messages')
 var messageContainer = document.getElementById('chat-messages')
@@ -20,7 +19,7 @@ var messageForm = document.getElementById('chat-form')
 // jQuery
 $(function() {
   //handle nav-list click task
-  $('#nav_dev').click(function() {
+  $('#nav_dev').on('click', function() {
     var dev_item = $('#dev_item')
     if (dev_item.css("display") == "none") {
       dev_item.show(300)
@@ -30,7 +29,7 @@ $(function() {
   })
 
   //handle nav-bar show and hide
-  $('.nav_icon').click(function() {
+  $('.nav_icon').on('click', function() {
     var nav_bar = $('.navsection')
     if (nav_bar.css("display") == "none") {
       nav_bar.fadeIn(600)
@@ -40,7 +39,7 @@ $(function() {
   })
 
   //handle chatbox show and hide
-  $('#chatIcon').click(function() {
+  $('#chatIcon').on('click', function() {
     var box = $('#chatbox')
     if (box.css("display") == "none") {
       box.fadeIn(600)
@@ -49,6 +48,105 @@ $(function() {
       box.fadeOut(300)
       $(this).removeClass('bounce')
     }
+  })
+
+  //custom events
+  $('#r1').on('r1_event', ()=>{
+    $('#r1').hide()
+    $('#r1-checked').show()
+    emergencyCount++
+  })
+
+  $('#r1-checked').on('r1_c_event', ()=>{
+    $('#r1-checked').hide()
+    $('#r1').show()
+    emergencyCount--
+  })
+
+  $('#r2').on('r2_event', ()=>{
+    $('#r2').hide()
+    $('#r2-checked').show()
+    emergencyCount++
+  })
+
+  $('#r2-checked').on('r2_c_event', ()=>{
+    $('#r2-checked').hide()
+    $('#r2').show()
+    emergencyCount--
+  })
+
+  $('#r3').on('r3_event', ()=>{
+    $('#r3').hide()
+    $('#r3-checked').show()
+    emergencyCount++
+  })
+
+  $('#r3-checked').on('r3_c_event', ()=>{
+    $('#r3-checked').hide()
+    $('#r3').show()
+    emergencyCount--
+  })
+
+  $('#breathing').on('rescue', ()=>{
+    let div = `
+    <hr>
+    <h5>Your Rescue is in Progress</h5>
+    <p>Our staff will contact you as soon as possible</p>
+  `
+    $('#breathing').hide()
+    if (emergencyCount>0) {
+      $('#breathing-after1').hide()
+      $('#breathing').show()
+      $('#breathing').removeClass('breathing')
+      $('#breathing').addClass('breathing-after')
+      $('#breathing').html("Rescue In Progress")
+      $('#rescue-message').html(div) 
+    } else {
+      div = `
+      <hr>
+      <h5>Your Are Safe!</h5>
+      <p>Take care bro!</p>
+    `
+      $('#breathing-after1').show()
+      $('#rescue-message').html(div)
+    }
+  })
+
+  //handle click (rescue options)
+  $('#r1').on('click', ()=>{
+    $('#r1').trigger('r1_event')
+    $('#breathing').trigger('rescue')
+  })
+
+  $('#r1-checked').on('click', ()=>{
+    $('#r1-checked').trigger('r1_c_event')
+    $('#breathing').trigger('rescue')
+  })
+
+  $('#r2').on('click', ()=>{
+    $('#r2').trigger('r2_event')
+    $('#breathing').trigger('rescue')
+  })
+
+  $('#r2-checked').on('click', ()=>{
+    $('#r2-checked').trigger('r2_c_event')
+    $('#breathing').trigger('rescue')
+  })
+
+  $('#r3').on('click', ()=>{
+    $('#r3').trigger('r3_event')
+    $('#breathing').trigger('rescue')
+  })
+
+  $('#r3-checked').on('click', ()=>{
+    $('#r3-checked').trigger('r3_c_event')
+    $('#breathing').trigger('rescue')
+  })
+
+  //handle rescue click
+  $('#breathing').on('click', ()=>{
+    $('#breathing').removeClass('breathing')
+    $('#breathing').addClass('breathing-after')
   })
 
   //create tables
@@ -124,6 +222,42 @@ request({
   }
 })
 
+//request daily weather AU
+let urls=["https://api.openweathermap.org/data/2.5/onecall?lat=-38.150002&lon=144.350006&exclude=minutely,hourly,alerts&units=metric&appid=5605e86f9bd5db980b3c2dfbd330811e", 
+"https://api.openweathermap.org/data/2.5/onecall?lat=-33.557&lon=146.469&exclude=minutely,hourly,alerts&units=metric&appid=5605e86f9bd5db980b3c2dfbd330811e", 
+"https://api.openweathermap.org/data/2.5/onecall?lat=-23&lon=143&exclude=minutely,hourly,alerts&units=metric&appid=5605e86f9bd5db980b3c2dfbd330811e", 
+"https://api.openweathermap.org/data/2.5/onecall?lat=-22.5&lon=133&exclude=minutely,hourly,alerts&units=metric&appid=5605e86f9bd5db980b3c2dfbd330811e", 
+"https://api.openweathermap.org/data/2.5/onecall?lat=-29.557&lon=133.469&exclude=minutely,hourly,alerts&units=metric&appid=5605e86f9bd5db980b3c2dfbd330811e", 
+"https://api.openweathermap.org/data/2.5/onecall?lat=-27&lon=125&exclude=minutely,hourly,alerts&units=metric&appid=5605e86f9bd5db980b3c2dfbd330811e", 
+"https://api.openweathermap.org/data/2.5/onecall?lat=-42.1&lon=146.38&exclude=minutely,hourly,alerts&units=metric&appid=5605e86f9bd5db980b3c2dfbd330811e"]
+
+//This loop will be used if all APIs are filled
+for (let i = 0; i<7; i++){
+  request({
+    url: urls[i],
+    callBack: res=>{
+      if (res) {
+        daily_data[i] = res
+      } else daily_data[i] = {
+        daily: [{temp: {day:"No data"}, humidity:"No data", rain:"No data"}]
+      }
+    }
+  })
+}
+
+// request({
+//   url: urls[0],
+//   callBack: res=>{
+//     if (res) {
+//       daily_data[0] = res
+//     } else daily_data[0] = {
+//       daily: [{temp: {day:"No data"}, humidity:"No data", rain:"No data"}]
+//     }
+//   }
+// })
+
+console.log(daily_data[0].daily[0])
+
 // request from local files
 for (let i = 0; i < ajax_param_Arr.length; i++) {
   request({
@@ -132,6 +266,20 @@ for (let i = 0; i < ajax_param_Arr.length; i++) {
       ajax_region_Arr[i] = res
     }
   })
+}
+
+//create pop-up div contents
+let content_arr = ["#VIC_content", "#NSW_content", "#QLD_content", "#NT_content", "#SA_content", "#WA_content", "#TAS_content"]
+
+for (let i = 0; i < content_arr.length; i++) {
+  let div = `
+  <span>Temperature: ${daily_data[i].daily[0].temp.day} ℃</span><br>
+  <span>Humidity: ${daily_data[i].daily[0].humidity}</span><br>
+  <span>Rain: ${(daily_data[i].daily[0].rain)*100}%</span><br>
+  <span>Warning Level: </span>
+  <span style="color: red;">HIGH</span>
+  `
+  $(content_arr[i]).html(div)
 }
 
 //create research cards html
@@ -212,7 +360,7 @@ function ployToLocate (cLat, cLng) {
   return "WA"
   else if (ifCoordinPoly(cLat, cLng, ajax_region_Arr[6]))
   return "TAS"
-  else return "Undefined"
+  else return "Wherever"
 }
 
 // JS - Google Vector Map popups 
@@ -414,13 +562,14 @@ navigator.geolocation.getCurrentPosition((res) => {
       // + $('#message').text()
       ,to: '+61415140829' }},
       {
-        url: "https://4zvhzhjn2h.execute-api.us-east-2.amazonaws.com/test2/firewhere", 
-        data: {data: '"' + currentLocation.lat + ',' + currentLocation.lng + '"'}
+        url: "https://wc0l31mge7.execute-api.ap-southeast-2.amazonaws.com/newtest/newfirewhere", 
+        data: {data: daily_data[0].daily[0].temp.min + "," + daily_data[0].daily[0].temp.max + "," + daily_data[0].daily[0].wind_gust + "," + daily_data[0].daily[0].wind_speed + "," + daily_data[0].daily[0].wind_speed + "," + daily_data[0].daily[0].humidity + "," + daily_data[0].daily[0].humidity + "," + daily_data[0].daily[0].pressure + "," + daily_data[0].daily[0].pressure + "," + daily_data[0].daily[0].temp.morn + "," + daily_data[0].daily[0].temp.day}
       }
     ]
   
   // data post ajax
   function post(params) {
+    console.log(params.data)
     $.ajax({
       type: "POST",
       url:params.url,
@@ -428,10 +577,12 @@ navigator.geolocation.getCurrentPosition((res) => {
       data: params.data,
       // contentType:"application/json",
       beforeSend: function(request) {        
-        request.setRequestHeader("X-CSRF-TOKEN","%5B%7B%22token%22%3A%22V1Q05yKQFjHbrr0simPZ0jIWBpknwv2OSkCA0Hdeu6A%3D%22%2C%22version%22%3A%22hash-v1%22%7D%5D");
+        request.setRequestHeader("Content-Type", "application/json")
+        request.setRequestHeader("Access-Control-Allow-Origin","*");
       }, 
       success: (data) => {
         params.callBack(data)
+        console.log(data)
       },
       error(error){
         console.log(error);
@@ -450,18 +601,24 @@ navigator.geolocation.getCurrentPosition((res) => {
   })
   
   //handle send message button event
-  $('#send').click(() => {
+  $('#send').on('click', () => {
+    let success = false
   //post api for sending message
     post({
       url: ajax_post_param_Arr[0].url,
       data: ajax_post_param_Arr[0].data,
       callBack: res => {
-        console.log(res)
+        console.log(res),
+        success = true
       }
-    }).success(() => {
+    })
+    if (success) {
       var notification = $('#notification')
       notification.show(200)
-    })
+    } else {
+      var notification = $('#notification')
+      notification.show(200)
+    }
   })
 })
 
@@ -480,8 +637,9 @@ socket.on('message', message => {
 
 messageForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  var message = e.target.elements.msg.value;
+  var message = {text: e.target.elements.msg.value, area: areas};
   socket.emit('chatMessage', message);
+  console.log(message)
   e.target.elements.msg.value = '';
 })
 
@@ -489,7 +647,7 @@ function outputMessage(message) {
   const div = document.createElement('div');
   div.classList.add('message');
   div.innerHTML = `<div class="message">
-  <p class="meta">A user from ${areas} <span>${message.time}</span></p>
+  <p class="meta">A user from ${message.areas} <span>${message.time}</span></p>
   <p class="text">
     ${message.text}
   </p>
@@ -501,7 +659,7 @@ function welcomeMessage(message) {
   const div = document.createElement('div');
   div.classList.add('message');
   div.innerHTML = `<div class="message">
-  <p class="meta">Fireware Bot <span>${message.time}</span></p>
+  <p class="meta">Firewhere Bot <span>${message.time}</span></p>
   <p class="text">
     ${message.text}
   </p>

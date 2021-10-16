@@ -483,21 +483,35 @@ button.btn_selected{
   line-height: 26px; 
 }
 
-#breathing {
-    height: 26px;
-    width: 100px;
-    border: 1px solid #da2c2c;
-    -webkit-animation: breathing 1s ease-out infinite normal;
-    animation: breathing 1s ease-out infinite normal;
-    font-family:'Lantinghei SC';
-    font-size: 16px;
-    font-weight: bold;
-    background: #da2c2c;
-    color: #fff;
-    -webkit-font-smoothing: antialiased;
-    border-radius: 2px;
-    text-align: center;    
-    }
+.breathing {
+  height: 26px;
+  width: 100px;
+  border: 1px solid #da2c2c;
+  -webkit-animation: breathing 1s ease-out infinite normal;
+  animation: breathing 1s ease-out infinite normal;
+  font-family:'Lantinghei SC';
+  font-size: 16px;
+  font-weight: bold;
+  background: #da2c2c;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  border-radius: 2px;
+  text-align: center;    
+}
+
+.breathing-after {
+  height: 23.4px;
+  width: fit-content;
+  border: 1px solid #da2c2c;
+  font-family:'Lantinghei SC';
+  font-size: 13px;
+  font-weight: bold;
+  background: #da2c2c;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  border-radius: 2px;
+  text-align: center; 
+}
 
 
 @-webkit-keyframes breathing {

@@ -1,9 +1,10 @@
 const  moment = require('moment');
 
-function formatMessage(text) {
+function formatMessage(text, areas) {
     return {
         text,
-        time:moment().format('h:mm a')
+        time:moment().format('h:mm a'),
+        areas
     }
 }
 

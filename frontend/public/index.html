@@ -71,8 +71,11 @@
                     <h5 id="tab_title" style="margin-left: 20px; text-transform: uppercase;">Welcome</h5>
                 </div>
                 <div style="display: flex; flex-direction: row; align-items: center;">
-                    <button type="button" class="rescuebtn" id="breathing" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                    <button type="button" class="rescuebtn breathing" id="breathing" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
                         RESCUE
+                    </button>
+                    <button type="button" class="rescuebtn breathing-after" id="breathing-after1" style="background-color: green;display: none;" data-bs-toggle="modal" data-bs-target="#exampleModalCenter">
+                        YOU ARE SAFE
                     </button>
                     <img style="min-width: 16px; min-height: 16px; height: 16px; width: 16px;" src="assets/user.png" />
                     <div
@@ -87,20 +90,24 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLongTitle">Rescue</h5>
+                      <h5 class="modal-title" id="exampleModalLongTitle">Rescue Check</h5>
                       <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <div class="modal-body">
-                        <h5>Rescue Option 1</h5>
-                        <p><a href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" data-content="Popover body content is set in this attribute.">button</a></p>
+                        <h5>Do you have a safe place to stay?</h5>
+                        <p><a id="r1" href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" style="background-color:green;">YES</a></p>
+                        <p><a id="r1-checked" href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" style="background-color:red; display:none">NO</a></p>
                         <hr>
-                        <h5>Rescue Option 2</h5>
-                        <p><a href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" data-content="Popover body content is set in this attribute.">button</a></p>
+                        <h5>Is there any flaming near your house?</h5>
+                        <p><a id="r2" href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" style="background-color:green;">NO</a></p>
+                        <p><a id="r2-checked" href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" style="background-color:red; display:none">YES</a></p>
                         <hr>
-                        <h5>Rescue Option 3</h5>
-                        <p><a href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" data-content="Popover body content is set in this attribute.">button</a></p>
+                        <h5>Is there anyone hurt at your home?</h5>
+                        <p><a id="r3" href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" style="background-color:green;">NO</a></p>
+                        <p><a id="r3-checked" href="#" role="button" class="btn btn-secondary popover-test" title="Popover title" style="background-color:red; display:none">YES</a></p>
+                        <div id="rescue-message"></div>
                     </div>
                     <!-- <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -121,34 +128,13 @@
             <div class="pages flex" id="overview">
                 <div class="map_container" id="map_container">
                     <div id="map"></div>
-                    <div id="VIC_content">
-                        <span>Warning Level: </span><br />
-                        <span style="color: red;">HIGH</span>
-                    </div>
-                    <div id="NSW_content">
-                        <span>Warning Level: </span><br />
-                        <span style="color: red;">HIGH</span>
-                    </div>
-                    <div id="QLD_content">
-                        <span>Warning Level: </span><br />
-                        <span style="color: red;">HIGH</span>
-                    </div>
-                    <div id="NT_content">
-                        <span>Warning Level: </span><br />
-                        <span style="color: red;">HIGH</span>
-                    </div>
-                    <div id="SA_content">
-                        <span>Warning Level: </span><br />
-                        <span style="color: red;">HIGH</span>
-                    </div>
-                    <div id="WA_content">
-                        <span>Warning Level: </span><br />
-                        <span style="color: red;">HIGH</span>
-                    </div>
-                    <div id="TAS_content">
-                        <span>Warning Level: </span><br />
-                        <span style="color: red;">HIGH</span>
-                    </div>
+                    <div id="VIC_content"></div>
+                    <div id="NSW_content"></div>
+                    <div id="QLD_content"></div>
+                    <div id="NT_content"></div>
+                    <div id="SA_content"></div>
+                    <div id="WA_content"></div>
+                    <div id="TAS_content"></div>
                 </div>
             </div>
 

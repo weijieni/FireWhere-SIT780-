@@ -10,10 +10,10 @@ const User = require('../model/user')
 const Research = require('../model/research')
 const Admin = require('../model/admin')
 const accountSid = process.env.ACCOUNT_SID;
-const authToken = process.env.AUTHTOKEN;
+const authToken = process.env.AUTHTOKEN1 + process.env.AUTHTOKEN2;
 
 
-// const SMSclient = require('twilio')(accountSid, authToken);
+const SMSclient = require('twilio')(accountSid, authToken);
 	
 exports.createuser = function(req, res) {  
   const { username, password, role} = req.body
@@ -49,7 +49,7 @@ exports.sms = function (req, res){
   {	  
 	  SMSclient.messages.create({
 		body: req.body.message,
-		from: process.env.FROM_MOBILE,
+		from: "+14159428393",
 		to: req.body.to
 	  }).then(message => {
 			console.log(message.sid)
@@ -265,5 +265,23 @@ exports.adduserdetail = async (req,res)=>{
     console.log(error)
     return res.send({ status: 'error'})
   }
+}
+
+exports.getuser = async (req,res)=>{
+  const {email} = req.body
+  User.findOne({email: email}, (err, user) => {
+    if (err) {
+      //Return 400 for unspecified failure
+      return res.status(400).json({ success: false, error: err });
+    }
+    if (!user.length) {
+      //return 404 error if no entries found
+      return res
+        .status(404)
+        .json({ success: false, error: "Database empty" });
+    }
+    //otherwise, return 200 with list of clients
+    return res.status(200).json({ success: true, data: user });
+  }).catch((err) => console.log(err));
 }
 

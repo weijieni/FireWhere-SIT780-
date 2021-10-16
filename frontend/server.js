@@ -57,9 +57,9 @@ io.on('connection', socket => {
   count++;
 
   //welcome message
-  socket.emit('message', formatMessage('Welcome to FireWhere!'));
+  socket.emit('message', formatMessage('Welcome to FireWhere!', 'Official'));
 
-  socket.broadcast.emit('message', formatMessage('JOINED THE CHAT'));
+  socket.broadcast.emit('message', formatMessage('JOINED THE CHAT', 'Official'));
 
   io.emit('usercnt',count);
 
@@ -67,13 +67,13 @@ io.on('connection', socket => {
   socket.on('disconnect', () => {
     console.log('user disconnected');
     count--;
-    io.emit('message', formatMessage('LEFT THE CHAT'));
+    io.emit('message', formatMessage('LEFT THE CHAT', 'Official'));
     io.emit('usercnt', count);
   });
 
   //listen for message
-  socket.on('chatMessage', message => {
-    io.emit('message', formatMessage(message));
+  socket.on('chatMessage', (message) => {
+    io.emit('message', formatMessage(message.text, message.area));
   });
 
   setInterval(()=>{
