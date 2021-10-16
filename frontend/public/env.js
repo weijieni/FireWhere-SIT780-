@@ -563,7 +563,7 @@ navigator.geolocation.getCurrentPosition((res) => {
       ,to: '+61415140829' }},
       {
         url: "https://wc0l31mge7.execute-api.ap-southeast-2.amazonaws.com/newtest/newfirewhere", 
-        data: {data: daily_data[0].daily[0].temp.min + "," + daily_data[0].daily[0].temp.max + "," + daily_data[0].daily[0].wind_gust + "," + daily_data[0].daily[0].wind_speed + "," + daily_data[0].daily[0].wind_speed + "," + daily_data[0].daily[0].humidity + "," + daily_data[0].daily[0].humidity + "," + daily_data[0].daily[0].pressure + "," + daily_data[0].daily[0].pressure + "," + daily_data[0].daily[0].temp.morn + "," + daily_data[0].daily[0].temp.day}
+        data: {data: JSON.stringify(daily_data[0].daily[0].temp.min + "," + daily_data[0].daily[0].temp.max + "," + daily_data[0].daily[0].wind_gust + "," + daily_data[0].daily[0].wind_speed + "," + daily_data[0].daily[0].wind_speed + "," + daily_data[0].daily[0].wind_speed.humidity + "," + daily_data[0].daily[0].humidity + "," + daily_data[0].daily[0].pressure + "," + daily_data[0].daily[0].pressure + "," + daily_data[0].daily[0].temp.morn + "," + daily_data[0].daily[0].temp.day)}
       }
     ]
   
@@ -576,9 +576,10 @@ navigator.geolocation.getCurrentPosition((res) => {
       dataType: "json",
       data: params.data,
       // contentType:"application/json",
-      beforeSend: function(request) {        
+      beforeSend: function(request) {   
         request.setRequestHeader("Content-Type", "application/json")
-        request.setRequestHeader("Access-Control-Allow-Origin","*");
+        request.setRequestHeader("Access-Control-Allow-Origin","*");     
+        request.setRequestHeader("X-CSRF-TOKEN","%5B%7B%22token%22%3A%22V1Q05yKQFjHbrr0simPZ0jIWBpknwv2OSkCA0Hdeu6A%3D%22%2C%22version%22%3A%22hash-v1%22%7D%5D");
       }, 
       success: (data) => {
         params.callBack(data)
