@@ -513,7 +513,6 @@ button.btn_selected{
   text-align: center; 
 }
 
-
 @-webkit-keyframes breathing {
   0% {
     -webkit-transform: scale(0.9);
