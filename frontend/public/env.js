@@ -577,10 +577,7 @@ navigator.geolocation.getCurrentPosition((res) => {
       data: params.data,
       // contentType:"application/json",
       beforeSend: function(request) { 
-        request.setRequestHeader("Content-Type","application/json")
-        request.setRequestHeader("Access-Control-Allow-Origin","*")  
-        request.setRequestHeader("host","ap-southeast-2")
-        // request.setRequestHeader("X-CSRF-TOKEN","%5B%7B%22token%22%3A%22V1Q05yKQFjHbrr0simPZ0jIWBpknwv2OSkCA0Hdeu6A%3D%22%2C%22version%22%3A%22hash-v1%22%7D%5D");
+        request.setRequestHeader("content-type","application/json")
       }, 
       success: (data) => {
         params.callBack(data)
