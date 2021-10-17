@@ -7,9 +7,11 @@ let warning_data = [
     urgent: "Urgent"
   }
 ]
-let temperature_data, humidity_data, season_data, data_data, card_data, daily_data=[]
+let temperature_data, humidity_data, season_data, data_data, card_data, daily_data=[] ,r=[]
 let VIC, NSW, QLD, NT, SA, WA, TAS = []
 let currentLocation, times, areas, emergencyCount=0
+let region_arr=["VIC_w", "NSW_w", "QLD_w","NT_w","SA_w","WA_w","TAS_w"]
+let d
 
 const socket = io()
 const query = document.querySelector('.chat-messages')
@@ -245,18 +247,78 @@ for (let i = 0; i<7; i++){
   })
 }
 
-// request({
-//   url: urls[0],
-//   callBack: res=>{
-//     if (res) {
-//       daily_data[0] = res
-//     } else daily_data[0] = {
-//       daily: [{temp: {day:"No data"}, humidity:"No data", rain:"No data"}]
-//     }
-//   }
-// })
+let ajax_post_param_Arr =[
+  {url: "https://firewhere-backend.herokuapp.com/api/sms", data: {message: '[FireWhere] ' + ' Current bush fire level in your area is "low risk of bush fire"' 
+  // + $('#message').text()
+  ,to: '+61415140829' }},
+  {
+    url: "https://wc0l31mge7.execute-api.ap-southeast-2.amazonaws.com/newtest/newfirewhere", 
+    data: {data: daily_data[0].daily[0].temp.min + "," + daily_data[0].daily[0].temp.max + "," + daily_data[0].daily[0].wind_gust + "," + daily_data[0].daily[0].wind_speed + "," + daily_data[0].daily[0].wind_speed + "," + daily_data[0].daily[0].humidity + "," + daily_data[0].daily[0].humidity + "," + daily_data[0].daily[0].pressure + "," + daily_data[0].daily[0].pressure + "," + daily_data[0].daily[0].temp.morn + "," + daily_data[0].daily[0].temp.day}
+  },
+  {
+    url: "https://wc0l31mge7.execute-api.ap-southeast-2.amazonaws.com/newtest/newfirewhere", 
+    data: {data: daily_data[1].daily[0].temp.min + "," + daily_data[0].daily[0].temp.max + "," + daily_data[1].daily[0].wind_gust + "," + daily_data[1].daily[0].wind_speed + "," + daily_data[1].daily[0].wind_speed + "," + daily_data[1].daily[0].humidity + "," + daily_data[1].daily[0].humidity + "," + daily_data[1].daily[0].pressure + "," + daily_data[1].daily[0].pressure + "," + daily_data[1].daily[0].temp.morn + "," + daily_data[1].daily[0].temp.day}
+  },
+  {
+    url: "https://wc0l31mge7.execute-api.ap-southeast-2.amazonaws.com/newtest/newfirewhere", 
+    data: {data: daily_data[2].daily[0].temp.min + "," + daily_data[0].daily[0].temp.max + "," + daily_data[2].daily[0].wind_gust + "," + daily_data[2].daily[0].wind_speed + "," + daily_data[2].daily[0].wind_speed + "," + daily_data[2].daily[0].humidity + "," + daily_data[2].daily[0].humidity + "," + daily_data[2].daily[0].pressure + "," + daily_data[2].daily[0].pressure + "," + daily_data[2].daily[0].temp.morn + "," + daily_data[2].daily[0].temp.day}
+  },
+  {
+    url: "https://wc0l31mge7.execute-api.ap-southeast-2.amazonaws.com/newtest/newfirewhere", 
+    data: {data: daily_data[3].daily[0].temp.min + "," + daily_data[0].daily[0].temp.max + "," + daily_data[3].daily[0].wind_gust + "," + daily_data[3].daily[0].wind_speed + "," + daily_data[3].daily[0].wind_speed + "," + daily_data[3].daily[0].humidity + "," + daily_data[3].daily[0].humidity + "," + daily_data[3].daily[0].pressure + "," + daily_data[3].daily[0].pressure + "," + daily_data[3].daily[0].temp.morn + "," + daily_data[3].daily[0].temp.day}
+  },
+  {
+    url: "https://wc0l31mge7.execute-api.ap-southeast-2.amazonaws.com/newtest/newfirewhere", 
+    data: {data: daily_data[4].daily[0].temp.min + "," + daily_data[0].daily[0].temp.max + "," + daily_data[4].daily[0].wind_gust + "," + daily_data[4].daily[0].wind_speed + "," + daily_data[4].daily[0].wind_speed + "," + daily_data[4].daily[0].humidity + "," + daily_data[4].daily[0].humidity + "," + daily_data[4].daily[0].pressure + "," + daily_data[4].daily[0].pressure + "," + daily_data[4].daily[0].temp.morn + "," + daily_data[4].daily[0].temp.day}
+  },
+  {
+    url: "https://wc0l31mge7.execute-api.ap-southeast-2.amazonaws.com/newtest/newfirewhere", 
+    data: {data: daily_data[5].daily[0].temp.min + "," + daily_data[0].daily[0].temp.max + "," + daily_data[5].daily[0].wind_gust + "," + daily_data[5].daily[0].wind_speed + "," + daily_data[5].daily[0].wind_speed + "," + daily_data[5].daily[0].humidity + "," + daily_data[5].daily[0].humidity + "," + daily_data[5].daily[0].pressure + "," + daily_data[5].daily[0].pressure + "," + daily_data[5].daily[0].temp.morn + "," + daily_data[5].daily[0].temp.day}
+  },
+  {
+    url: "https://wc0l31mge7.execute-api.ap-southeast-2.amazonaws.com/newtest/newfirewhere", 
+    data: {data: daily_data[6].daily[0].temp.min + "," + daily_data[0].daily[0].temp.max + "," + daily_data[6].daily[0].wind_gust + "," + daily_data[6].daily[0].wind_speed + "," + daily_data[6].daily[0].wind_speed + "," + daily_data[6].daily[0].humidity + "," + daily_data[6].daily[0].humidity + "," + daily_data[6].daily[0].pressure + "," + daily_data[6].daily[0].pressure + "," + daily_data[6].daily[0].temp.morn + "," + daily_data[6].daily[0].temp.day}
+  }
+]
 
-console.log(daily_data[0].daily[0])
+// data post ajax
+function post(params) {
+console.log(params.data)
+$.ajax({
+  type: "POST",
+  url:params.url,
+  dataType: "json",
+  data: JSON.stringify(params.data),
+  // contentType:"application/json",
+  beforeSend: function(request) { 
+    request.setRequestHeader("content-type","application/json")
+  }, 
+  success: (data) => {
+    params.callBack(data)
+  },
+  error(error){
+    console.log(error);
+  }
+});
+}
+
+//post location data and get prediction response data from cloud
+for (let i = 1; i < 8; i++){
+  post({
+    url: ajax_post_param_Arr[i].url, 
+    data: ajax_post_param_Arr[i].data, 
+    callBack: res => {
+      let w_high = "HIGH"
+      let w_medium = "MEDIUM"
+      let w_low = "LOW"
+      if (res<0.01) d = w_low
+      else if (res<0.3) d = w_medium
+      else d=w_high
+    
+      r[i-1] = d
+    }
+  })
+}
 
 // request from local files
 for (let i = 0; i < ajax_param_Arr.length; i++) {
@@ -272,15 +334,17 @@ for (let i = 0; i < ajax_param_Arr.length; i++) {
 let content_arr = ["#VIC_content", "#NSW_content", "#QLD_content", "#NT_content", "#SA_content", "#WA_content", "#TAS_content"]
 
 for (let i = 0; i < content_arr.length; i++) {
-  let div = `
-  <span>Temperature: ${daily_data[i].daily[0].temp.day} ℃</span><br>
-  <span>Humidity: ${daily_data[i].daily[0].humidity}</span><br>
-  <span>Rain: ${(daily_data[i].daily[0].rain)*100}%</span><br>
-  <span>Warning Level: </span>
-  <span style="color: red;">HIGH</span>
-  `
-  $(content_arr[i]).html(div)
+    let div = `
+    <span>Temperature: ${daily_data[i].daily[0].temp.day} ℃</span><br>
+    <span>Humidity: ${daily_data[i].daily[0].humidity}</span><br>
+    <span>Rain: ${(daily_data[i].daily[0].rain)*100}%</span><br>
+    <span>Warning Level: </span>
+    <span>MEDIUM</span>
+    `
+    console.log(r[i])
+    $(content_arr[i]).html(div)
 }
+
 
 //create research cards html
 function addCards(card_data) {
@@ -557,47 +621,6 @@ navigator.geolocation.getCurrentPosition((res) => {
   }
   currentLocation = pos
 
-  let ajax_post_param_Arr =[
-      {url: "https://firewhere-backend.herokuapp.com/api/sms", data: {message: '[FireWhere] ' + ' Current bush fire level in your area is "low risk of bush fire"' 
-      // + $('#message').text()
-      ,to: '+61415140829' }},
-      {
-        url: "https://wc0l31mge7.execute-api.ap-southeast-2.amazonaws.com/newtest/newfirewhere", 
-        data: {data: JSON.stringify(daily_data[0].daily[0].temp.min + "," + daily_data[0].daily[0].temp.max + "," + daily_data[0].daily[0].wind_gust + "," + daily_data[0].daily[0].wind_speed + "," + daily_data[0].daily[0].wind_speed + "," + daily_data[0].daily[0].humidity + "," + daily_data[0].daily[0].humidity + "," + daily_data[0].daily[0].pressure + "," + daily_data[0].daily[0].pressure + "," + daily_data[0].daily[0].temp.morn + "," + daily_data[0].daily[0].temp.day)}
-      }
-    ]
-  
-  // data post ajax
-  function post(params) {
-    console.log(params.data)
-    $.ajax({
-      type: "POST",
-      url:params.url,
-      dataType: "json",
-      data: params.data,
-      // contentType:"application/json",
-      beforeSend: function(request) { 
-        request.setRequestHeader("content-type","application/json")
-      }, 
-      success: (data) => {
-        params.callBack(data)
-        console.log(data)
-      },
-      error(error){
-        console.log(error);
-      }
-    });
-  }
-  
-  //post location data and get prediction response data from cloud
-  post({
-    url: ajax_post_param_Arr[1].url, 
-    data: ajax_post_param_Arr[1].data, 
-    callBack: res => {
-      $('#message').html(res)
-      console.log(res)
-    }
-  })
   
   //handle send message button event
   $('#send').on('click', () => {
